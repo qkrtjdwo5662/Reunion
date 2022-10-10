@@ -4,14 +4,14 @@ import java.sql.*;
 
 public class ConnectDB {
     Connection connection = null;
-    String url =  "jdbc:mysql://3.38.179.58:3306/?user=root";
+    String url =  "jdbc:mysql://3.38.179.58:3306/reunion";
     String id = "root";
     String password = "paul2858";
 
     Statement statement = null;
     public ConnectDB() {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("com.mysql.jdbc.Driver");
             //driver loading
             connection = DriverManager.getConnection(url,id,password);
             //db 연결
