@@ -1,7 +1,6 @@
-package view;
+package views;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
@@ -57,7 +56,9 @@ public class LoginFrame extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-//                JoinFrame frame = new JoinFrame();
+                String uid = "";
+                String upassword = "";
+
             }
         });
     }
