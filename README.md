@@ -1,2 +1,2 @@
 # Reunion
-Hanging University College of IT Engineering Student Council Management App
+Hansung University College of IT Engineering Student Council Management App
