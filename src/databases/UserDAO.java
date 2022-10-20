@@ -5,7 +5,6 @@ import java.sql.*;
 public class UserDAO {
     Connection connection = null;
     PreparedStatement ps = null;
-
     ResultSet rs = null;
     Statement st = null;
     public UserDAO(){

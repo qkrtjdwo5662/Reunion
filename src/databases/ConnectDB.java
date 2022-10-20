@@ -3,12 +3,11 @@ package databases;
 import java.sql.*;
 
 public class ConnectDB {
-    Connection connection = null;
-    String url =  "jdbc:mysql://3.38.179.58:3306/reunion";
-    String id = "root";
-    String password = "paul2858";
+    private Connection connection = null; // db연결 정보
+    private String url =  "jdbc:mysql://3.38.179.58:3306/reunion";
+    private String id = "root";
+    private String password = "paul2858";
 
-    Statement statement = null;
     public ConnectDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
