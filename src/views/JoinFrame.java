@@ -12,7 +12,7 @@ public class JoinFrame extends JFrame {
     private JPanel panel;
     private JTextField idText, pwText,nameText;
     private JButton registerBtn;
-    UserDAO dao = new UserDAO();
+
 
     public JoinFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +74,7 @@ public class JoinFrame extends JFrame {
         dto.setPassword(pwText.getText());
         dto.setName(nameText.getText());
 
+        UserDAO dao = new UserDAO();
         if(dao.create(dto)){
             JOptionPane.showMessageDialog(null, "회원가입 성공");
         }else{

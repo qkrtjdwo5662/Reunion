@@ -1,6 +1,7 @@
 package views;
 
 import databases.UserDAO;
+import databases.UserDTO;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -11,7 +12,7 @@ public class LoginFrame extends JFrame {
     private JPanel panel;
     private JTextField idText, pwText;
     private JButton loginBtn, joinBtn;
-    UserDAO dao = new UserDAO();
+
 
     public LoginFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +60,7 @@ public class LoginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 login();
-
+                MainFrame mainFrame = new MainFrame();
             }
         });
         joinBtn.addActionListener(new ActionListener() {
@@ -82,9 +83,13 @@ public class LoginFrame extends JFrame {
             pwText.requestFocus();
         }
 
+        UserDAO dao = new UserDAO();
         if(dao.read(id,password)){
             JOptionPane.showMessageDialog(null, "로그인 성공");
         }
+        UserDTO dto = new UserDTO();
+        dto.setId(id);
+        dto.setPassword(password);
 
 
     }
