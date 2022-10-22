@@ -5,7 +5,7 @@ import javax.security.auth.login.LoginException;
 import java.sql.*;
 
 public class UserDAO {
-    private Connection c =null; // db연결 정보
+    private Connection c =new ConnectDB().getConnection();; // db연결 정보
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
@@ -44,7 +44,6 @@ public class UserDAO {
 //    }
     public boolean read(String uid, String pass){
        queryCheck = false;
-        c = new ConnectDB().getConnection();
         try {
 
             String sql = "SELECT password FROM user WHERE id = ?";
