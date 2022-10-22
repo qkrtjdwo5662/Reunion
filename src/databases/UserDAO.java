@@ -5,7 +5,7 @@ import javax.security.auth.login.LoginException;
 import java.sql.*;
 
 public class UserDAO {
-    private Connection c =new ConnectDB().getConnection();; // db연결 정보
+    private Connection connection =new ConnectDB().getConnection();; // db연결 정보
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
@@ -16,8 +16,8 @@ public class UserDAO {
     }
     public void databasesClose() {
         try {
-            if (c != null)
-                c.close();
+            if (connection != null)
+                connection.close();
             if (ps != null)
                 ps.close();
             if (rs != null)
@@ -27,27 +27,32 @@ public class UserDAO {
         }
     }
     //CRUD
-//    public void create(UserDTO userDTO){
-//        try{
-//            String sql = "INSERT INTO user(stu_id, password, name) values(?, ?, ?)";
-//            ps = connection.prepareStatement(sql);
-//            ps.setString(1,userDTO.getId());
-//            ps.setString(2,userDTO.getPassword());
-//            ps.setString(3,userDTO.getName());
-//            ps.executeUpdate();
-//        }catch(SQLException sqle){
-//            sqle.printStackTrace();
-//        }finally {
-//            databasesClose();
-//        }
-//
-//    }
+    public boolean create(UserDTO userDTO){
+        queryCheck = false;
+        try{
+            String sql = "INSERT INTO user(id, password, name) VALUES (?, ?, ?)";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1,userDTO.getId());
+            ps.setString(2,userDTO.getPassword());
+            ps.setString(3,userDTO.getName());
+            int r = ps.executeUpdate();
+            if(r>0){
+                queryCheck =true;
+            }
+
+        }catch(SQLException sqle){
+            sqle.printStackTrace();
+        }finally {
+            databasesClose();
+        }
+        return queryCheck;
+    }
     public boolean read(String uid, String pass){
        queryCheck = false;
         try {
 
             String sql = "SELECT password FROM user WHERE id = ?";
-            ps = c.prepareStatement(sql);
+            ps = connection.prepareStatement(sql);
 
             ps.setString(1, uid);
 

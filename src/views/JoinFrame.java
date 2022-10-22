@@ -1,6 +1,7 @@
 package views;
 
 import databases.UserDAO;
+import databases.UserDTO;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -68,10 +69,16 @@ public class JoinFrame extends JFrame {
         });
     }
     public void register(){
+        UserDTO dto = new UserDTO();
+        dto.setId(idText.getText());
+        dto.setPassword(pwText.getText());
+        dto.setName(nameText.getText());
 
-    }
-    public static void main(String[] args) {
-        JoinFrame join = new JoinFrame();
+        if(dao.create(dto)){
+            JOptionPane.showMessageDialog(null, "회원가입 성공");
+        }else{
+            JOptionPane.showMessageDialog(null, "회원가입 실패");
+        }
     }
 
 
