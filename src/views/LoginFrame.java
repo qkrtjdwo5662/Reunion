@@ -2,7 +2,6 @@ package views;
 
 import databases.UserDAO;
 
-import javax.security.auth.login.LoginException;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -63,6 +62,12 @@ public class LoginFrame extends JFrame {
 
             }
         });
+        joinBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JoinFrame join = new JoinFrame();
+            }
+        });
     }
     public void login(){
         String id = idText.getText();
@@ -83,9 +88,7 @@ public class LoginFrame extends JFrame {
 
 
     }
-    public static void main(String[] args) {
-        LoginFrame loginFrame = new LoginFrame();
-    }
+
 
 
 }
