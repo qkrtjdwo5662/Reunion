@@ -1,5 +1,8 @@
 package views;
 
+import databases.UserDAO;
+
+import javax.security.auth.login.LoginException;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -7,9 +10,9 @@ import javax.swing.border.EmptyBorder;
 
 public class LoginFrame extends JFrame {
     private JPanel panel;
-    private JTextField username, password;
+    private JTextField idText, pwText;
     private JButton loginBtn, joinBtn;
-
+    UserDAO dao = new UserDAO();
 
     public LoginFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,15 +32,15 @@ public class LoginFrame extends JFrame {
         passwordLabel.setBounds(40, 100, 80, 40);
         panel.add(passwordLabel);
 
-        username = new JTextField();
-        username.setBounds(160, 50, 200, 40);
-        panel.add(username);
-        username.setColumns(10);
+        idText = new JTextField();
+        idText.setBounds(160, 50, 200, 40);
+        panel.add(idText);
+        idText.setColumns(10);
 
-        password = new JTextField();
-        password.setColumns(10);
-        password.setBounds(160, 100, 200, 40);
-        panel.add(password);
+        pwText = new JTextField();
+        pwText.setColumns(10);
+        pwText.setBounds(160, 100, 200, 40);
+        panel.add(pwText);
 
         joinBtn = new JButton("회원가입");
         joinBtn.setBounds(260, 160, 100, 30);
@@ -52,15 +55,33 @@ public class LoginFrame extends JFrame {
         setSize(500, 500);
         setVisible(true);
         //회원가입 액션
-        joinBtn.addActionListener(new ActionListener() {
+        loginBtn.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String uid = "";
-                String upassword = "";
+                login();
 
             }
         });
+    }
+    public void login(){
+        String id = idText.getText();
+        String password = pwText.getText();
+
+        if(id.length()==0){
+            JOptionPane.showMessageDialog(this, "아이디를 입력하시오");
+            idText.requestFocus();
+        }
+        else if(password.length()==0){
+            JOptionPane.showMessageDialog(this, "패스워드를 입력하시오");
+            pwText.requestFocus();
+        }
+
+        if(dao.read(id,password)){
+            JOptionPane.showMessageDialog(null, "로그인 성공");
+        }
+
+
     }
     public static void main(String[] args) {
         LoginFrame loginFrame = new LoginFrame();
