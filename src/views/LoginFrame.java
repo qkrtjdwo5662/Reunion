@@ -87,7 +87,7 @@ public class LoginFrame extends JFrame {
         UserDAO dao = new UserDAO();
         if(dao.login(id,password)){
             vo = dao.userData(id,password);
-            JOptionPane.showMessageDialog(null, vo.getId()+"로그인 성공");
+            JOptionPane.showMessageDialog(null, "로그인 성공");
             setVisible(false);
 
             MainFrame mainFrame = new MainFrame(vo);
