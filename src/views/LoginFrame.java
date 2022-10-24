@@ -1,6 +1,6 @@
 package views;
 
-import databases.UserDAO;
+import databases.UserVO;
 import databases.UserDTO;
 
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
 
 public class LoginFrame extends JFrame {
-    private JPanel panel;
+    private JPanel loginPanel;
     private JTextField idText, pwText;
     private JButton loginBtn, joinBtn;
 
@@ -19,36 +19,36 @@ public class LoginFrame extends JFrame {
 
         setLocationRelativeTo(null);// window center
 
-        panel = new JPanel();
-        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(panel);
-        panel.setLayout(null);
+        loginPanel = new JPanel();
+        loginPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(loginPanel);
+        loginPanel.setLayout(null);
 
-        JLabel loginLabel = new JLabel("UserId");
-        loginLabel.setBounds(40, 50, 80, 40);
-        panel.add(loginLabel);
+        JLabel userIdLabel = new JLabel("UserId");
+        userIdLabel.setBounds(40, 50, 80, 40);
+        loginPanel.add(userIdLabel);
 
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(40, 100, 80, 40);
-        panel.add(passwordLabel);
+        loginPanel.add(passwordLabel);
 
         idText = new JTextField();
         idText.setBounds(160, 50, 200, 40);
-        panel.add(idText);
+        loginPanel.add(idText);
         idText.setColumns(10);
 
         pwText = new JTextField();
         pwText.setColumns(10);
         pwText.setBounds(160, 100, 200, 40);
-        panel.add(pwText);
+        loginPanel.add(pwText);
 
         joinBtn = new JButton("회원가입");
         joinBtn.setBounds(260, 160, 100, 30);
-        panel.add(joinBtn);
+        loginPanel.add(joinBtn);
 
         loginBtn = new JButton("로그인");
         loginBtn.setBounds(150, 160, 100, 30);
-        panel.add(loginBtn);
+        loginPanel.add(loginBtn);
 
 
 
@@ -60,12 +60,13 @@ public class LoginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 login();
-                MainFrame mainFrame = new MainFrame();
+
             }
         });
         joinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);
                 JoinFrame join = new JoinFrame();
             }
         });
@@ -83,9 +84,11 @@ public class LoginFrame extends JFrame {
             pwText.requestFocus();
         }
 
-        UserDAO dao = new UserDAO();
+        UserVO dao = new UserVO();
         if(dao.read(id,password)){
             JOptionPane.showMessageDialog(null, "로그인 성공");
+            setVisible(false);
+            MainFrame mainFrame = new MainFrame();
         }
         UserDTO dto = new UserDTO();
         dto.setId(id);

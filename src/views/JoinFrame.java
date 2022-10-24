@@ -1,6 +1,6 @@
 package views;
 
-import databases.UserDAO;
+import databases.UserVO;
 import databases.UserDTO;
 
 import javax.swing.*;
@@ -9,9 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class JoinFrame extends JFrame {
-    private JPanel panel;
+    private JPanel joinPanel;
     private JTextField idText, pwText,nameText;
-    private JButton registerBtn;
+    private JButton backBtn,registerBtn;
 
 
     public JoinFrame() {
@@ -19,54 +19,55 @@ public class JoinFrame extends JFrame {
 
         setLocationRelativeTo(null);// window center
 
-        panel = new JPanel();
-        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(panel);
-        panel.setLayout(null);
+        joinPanel = new JPanel();
+        joinPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(joinPanel);
+        joinPanel.setLayout(null);
 
-        JLabel loginLabel = new JLabel("UserId");
-        loginLabel.setBounds(40, 50, 80, 40);
-        panel.add(loginLabel);
+        JLabel userIdLabel = new JLabel("UserId");
+        userIdLabel.setBounds(40, 50, 80, 40);
+        joinPanel.add(userIdLabel);
 
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(40, 130, 80, 40);
-        panel.add(passwordLabel);
+        joinPanel.add(passwordLabel);
 
         JLabel nameLabel = new JLabel("Name");
         nameLabel.setBounds(40, 210, 80, 40);
-        panel.add(nameLabel);
+        joinPanel.add(nameLabel);
 
         idText = new JTextField();
         idText.setBounds(160, 50, 200, 40);
-        panel.add(idText);
+        joinPanel.add(idText);
         idText.setColumns(10);
 
         pwText = new JTextField();
         pwText.setColumns(10);
         pwText.setBounds(160, 130, 200, 40);
-        panel.add(pwText);
+        joinPanel.add(pwText);
 
         nameText = new JTextField();
         nameText.setColumns(10);
         nameText.setBounds(160, 210, 200, 40);
-        panel.add(nameText);
+        joinPanel.add(nameText);
+
+        backBtn = new JButton("뒤로가기");
+        backBtn.setBounds(145, 370, 100, 30);
+        joinPanel.add(backBtn);
 
         registerBtn = new JButton("회원등록");
-        registerBtn.setBounds(200, 370, 100, 30);
-        panel.add(registerBtn);
+        registerBtn.setBounds(255, 370, 100, 30);
+        joinPanel.add(registerBtn);
 
 
         setSize(500, 500);
         setVisible(true);
         //회원가입 액션
-        registerBtn.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                register();
-            }
+        backBtn.addActionListener(e ->{
+            setVisible(false);
+            LoginFrame loginFrame = new LoginFrame();
         });
+        registerBtn.addActionListener(e -> register());
     }
     public void register(){
         UserDTO dto = new UserDTO();
@@ -74,7 +75,7 @@ public class JoinFrame extends JFrame {
         dto.setPassword(pwText.getText());
         dto.setName(nameText.getText());
 
-        UserDAO dao = new UserDAO();
+        UserVO dao = new UserVO();
         if(dao.create(dto)){
             JOptionPane.showMessageDialog(null, "회원가입 성공");
         }else{

@@ -1,8 +1,4 @@
-import databases.ConnectDB;
-import databases.UserDAO;
 import views.LoginFrame;
-
-import javax.swing.JFrame;
 
 public class Main {
     LoginFrame loginFrame;

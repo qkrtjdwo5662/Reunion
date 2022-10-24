@@ -1,17 +1,16 @@
 package databases;
 
-import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import java.sql.*;
 
-public class UserDAO {
+public class UserVO {
     private Connection connection =new ConnectDB().getConnection();; // db연결 정보
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
     public boolean queryCheck = false;
 
-    public UserDAO(){
+    public UserVO(){
 
     }
     public void databasesClose() {
