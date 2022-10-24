@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 public class MainFrame extends JFrame {
     private JPanel panel;
 
-    public MainFrame(){
+    public MainFrame(UserVO vo){
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -20,7 +20,7 @@ public class MainFrame extends JFrame {
         panel.setLayout(null);
 
 
-        JLabel welcomeLabel = new JLabel( "환영합니다");
+        JLabel welcomeLabel = new JLabel( vo.getName()+"님 환영합니다");
         welcomeLabel.setBounds(100, 175, 300, 150);
         panel.add(welcomeLabel);
 

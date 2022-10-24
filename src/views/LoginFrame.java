@@ -90,7 +90,7 @@ public class LoginFrame extends JFrame {
             JOptionPane.showMessageDialog(null, vo.getId()+"로그인 성공");
             setVisible(false);
 
-            MainFrame mainFrame = new MainFrame();
+            MainFrame mainFrame = new MainFrame(vo);
         }else{
             JOptionPane.showMessageDialog(null, "로그인 정보를 확인하세요");
         }
