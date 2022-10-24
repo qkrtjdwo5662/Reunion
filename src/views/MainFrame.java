@@ -1,15 +1,13 @@
 package views;
 
-import databases.UserDTO;
+import databases.UserVO;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
 
 public class MainFrame extends JFrame {
     private JPanel panel;
-    UserDTO dto = new UserDTO();
+
     public MainFrame(){
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,7 +19,8 @@ public class MainFrame extends JFrame {
         setContentPane(panel);
         panel.setLayout(null);
 
-        JLabel welcomeLabel = new JLabel(dto.getId()+"님 환영합니다");
+
+        JLabel welcomeLabel = new JLabel( "환영합니다");
         welcomeLabel.setBounds(100, 175, 300, 150);
         panel.add(welcomeLabel);
 

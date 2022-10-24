@@ -1,12 +1,10 @@
 package views;
 
+import databases.UserDAO;
 import databases.UserVO;
-import databases.UserDTO;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class JoinFrame extends JFrame {
     private JPanel joinPanel;
@@ -70,12 +68,12 @@ public class JoinFrame extends JFrame {
         registerBtn.addActionListener(e -> register());
     }
     public void register(){
-        UserDTO dto = new UserDTO();
+        UserVO dto = new UserVO();
         dto.setId(idText.getText());
         dto.setPassword(pwText.getText());
         dto.setName(nameText.getText());
 
-        UserVO dao = new UserVO();
+        UserDAO dao = new UserDAO();
         if(dao.create(dto)){
             JOptionPane.showMessageDialog(null, "회원가입 성공");
         }else{

@@ -1,7 +1,7 @@
 package views;
 
+import databases.UserDAO;
 import databases.UserVO;
-import databases.UserDTO;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -13,7 +13,7 @@ public class LoginFrame extends JFrame {
     private JTextField idText, pwText;
     private JButton loginBtn, joinBtn;
 
-
+    UserVO vo;
     public LoginFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -84,18 +84,24 @@ public class LoginFrame extends JFrame {
             pwText.requestFocus();
         }
 
-        UserVO dao = new UserVO();
-        if(dao.read(id,password)){
-            JOptionPane.showMessageDialog(null, "로그인 성공");
+        UserDAO dao = new UserDAO();
+        if(dao.login(id,password)){
+            vo = dao.userData(id,password);
+            JOptionPane.showMessageDialog(null, vo.getId()+"로그인 성공");
             setVisible(false);
-            MainFrame mainFrame = new MainFrame();
-        }
-        UserDTO dto = new UserDTO();
-        dto.setId(id);
-        dto.setPassword(password);
 
+            MainFrame mainFrame = new MainFrame();
+        }else{
+            JOptionPane.showMessageDialog(null, "로그인 정보를 확인하세요");
+        }
 
     }
+    public UserVO data(){
+        UserDAO dao = new UserDAO();
+        UserVO vo = dao.userData(idText.getText(),pwText.getText());
+        return vo;
+    }
+
 
 
 
