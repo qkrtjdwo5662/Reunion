@@ -40,9 +40,10 @@ public class LoginFrame extends JFrame {
         loginPanel.add(id_LoginText);
         id_LoginText.setColumns(10);
 
-        pw_LoginText = new JTextField();
+        pw_LoginText = new JPasswordField();
         pw_LoginText.setColumns(10);
         pw_LoginText.setBounds(160, 100, 200, 40);
+        //pw_LoginText.set('*');
         loginPanel.add(pw_LoginText);
 
 
@@ -78,7 +79,7 @@ public class LoginFrame extends JFrame {
         joinPanel.add(id_JoinText);
         id_JoinText.setColumns(10);
 
-        pw_JoinText = new JTextField();
+        pw_JoinText = new JPasswordField();
         pw_JoinText.setColumns(10);
         pw_JoinText.setBounds(160, 130, 200, 40);
         joinPanel.add(pw_JoinText);
@@ -106,8 +107,8 @@ public class LoginFrame extends JFrame {
                 login();
         });
         joinBtn.addActionListener(e -> {
-                loginPanel.setVisible(false);
-                joinPanel.setVisible(true);
+            loginPanel.setVisible(false);
+            joinPanel.setVisible(true);
         });
         //회원가입 액션
         backBtn.addActionListener(e ->{
