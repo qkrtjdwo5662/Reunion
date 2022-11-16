@@ -97,7 +97,7 @@ public class LoginFrame extends JFrame {
         registerBtn.setBounds(255, 370, 100, 30);
         joinPanel.add(registerBtn);
 
-        setSize(500, 500);
+        setSize(800, 800);
         setVisible(true);
 
         add(loginPanel);
