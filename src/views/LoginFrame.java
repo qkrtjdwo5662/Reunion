@@ -15,7 +15,7 @@ public class LoginFrame extends JFrame {
     private JTextField id_JoinText, pw_JoinText, name_JoinText;
     private JButton backBtn,registerBtn;
 
-    UserVO vo;
+    UserVO userVO;
     public LoginFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);// window center
@@ -118,13 +118,13 @@ public class LoginFrame extends JFrame {
 
     }
     public void register(){
-        vo = new UserVO();
-        vo.setUser_Id(id_JoinText.getText());
-        vo.setPassword(pw_JoinText.getText());
-        vo.setName(name_JoinText.getText());
+        userVO = new UserVO();
+        userVO.setUser_Id(id_JoinText.getText());
+        userVO.setPassword(pw_JoinText.getText());
+        userVO.setName(name_JoinText.getText());
 
         UserDAO dao = new UserDAO();
-        if(dao.create(vo)){
+        if(dao.create(userVO)){
             JOptionPane.showMessageDialog(null, "회원가입 성공");
         }else{
             JOptionPane.showMessageDialog(null, "회원가입 실패");
@@ -148,21 +148,17 @@ public class LoginFrame extends JFrame {
 
         UserDAO dao = new UserDAO();
         if(dao.login(id,password)){
-            vo = dao.userData(id,password);
+            userVO = dao.userData(id,password);
             JOptionPane.showMessageDialog(null, "로그인 성공");
             setVisible(false);
 
-            MainFrame mainFrame = new MainFrame(vo);
+            MainFrame mainFrame = new MainFrame(userVO);
         }else{
             JOptionPane.showMessageDialog(null, "로그인 정보를 확인하세요");
         }
 
     }
-    public UserVO data(){
-        UserDAO dao = new UserDAO();
-        UserVO vo = dao.userData(id_LoginText.getText(), pw_LoginText.getText());
-        return vo;
-    }
+
 
     public static void main(String[] args) {
         LoginFrame loginFrame = new LoginFrame();

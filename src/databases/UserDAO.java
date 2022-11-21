@@ -29,7 +29,7 @@ public class UserDAO {
     public boolean create(UserVO userVO){
         queryCheck = false;
         try{
-            String sql = "INSERT INTO user(user_id, password, name) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO user(user_Id, password, name) VALUES (?, ?, ?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1,userVO.getUser_Id());
             ps.setString(2,userVO.getPassword());
@@ -50,7 +50,7 @@ public class UserDAO {
        queryCheck = false;
         try {
 
-            String sql = "SELECT password FROM user WHERE user_id = ?";
+            String sql = "SELECT password FROM user WHERE user_Id = ?";
             ps = connection.prepareStatement(sql);
 
 
@@ -80,7 +80,7 @@ public class UserDAO {
         UserVO vo= new UserVO();
         try {
 
-            String sql = "SELECT user_id, password, name FROM user WHERE user_id = ? and password=?";
+            String sql = "SELECT user_Id, password, name FROM user WHERE user_Id = ? and password=?";
             ps = connection.prepareStatement(sql);
 
 
