@@ -1,24 +1,24 @@
 package databases;
 
 public class UserVO {
-    private String id;
+    private String user_Id;
     private String password;
     private String name;
 
     public UserVO(){
 
     }
-    public UserVO(String id, String password, String name){
-        this.id = id;
+    public UserVO(String user_Id, String password, String name){
+        this.user_Id = user_Id;
         this.password = password;
         this.name = name;
     }
 
-    public String getId(){
-        return id;
+    public String getUser_Id(){
+        return user_Id;
     }
-    public void setId(String id){
-        this.id = id;
+    public void setUser_Id(String user_Id){
+        this.user_Id = user_Id;
     }
     public String getPassword(){
         return password;

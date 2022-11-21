@@ -6,9 +6,9 @@ public class ConnectDB {
     private Connection connection = null; // db연결 정보
 //    private PreparedStatement ps = null;
 //    private ResultSet rs = null;
-    private String url =  "jdbc:mysql://3.38.179.58:3306/reunion";
+    private String url =  "jdbc:mysql://127.0.0.1:3306/reunion";
     private String id = "root";
-    private String password = "paul2858";
+    private String password = "1111";
 
     public ConnectDB() {
 

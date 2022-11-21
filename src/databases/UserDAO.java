@@ -2,7 +2,6 @@ package databases;
 
 import javax.security.auth.login.LoginException;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class UserDAO {
     private Connection connection =new ConnectDB().getConnection();; // db연결 정보
@@ -30,9 +29,9 @@ public class UserDAO {
     public boolean create(UserVO userDTO){
         queryCheck = false;
         try{
-            String sql = "INSERT INTO user(id, password, name) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO user(user_id, password, name) VALUES (?, ?, ?)";
             ps = connection.prepareStatement(sql);
-            ps.setString(1,userDTO.getId());
+            ps.setString(1,userDTO.getUser_Id());
             ps.setString(2,userDTO.getPassword());
             ps.setString(3,userDTO.getName());
             int r = ps.executeUpdate();
@@ -51,7 +50,7 @@ public class UserDAO {
        queryCheck = false;
         try {
 
-            String sql = "SELECT password FROM user WHERE id = ?";
+            String sql = "SELECT password FROM user WHERE user_id = ?";
             ps = connection.prepareStatement(sql);
 
 
@@ -81,7 +80,7 @@ public class UserDAO {
         UserVO vo= new UserVO();
         try {
 
-            String sql = "SELECT id, password, name FROM user WHERE id = ? and password=?";
+            String sql = "SELECT user_id, password, name FROM user WHERE user_id = ? and password=?";
             ps = connection.prepareStatement(sql);
 
 
@@ -91,7 +90,7 @@ public class UserDAO {
             rs = ps.executeQuery();
             rs.next();
 
-            vo.setId(rs.getString(1));
+            vo.setUser_Id(rs.getString(1));
             vo.setPassword(rs.getString(2));
             vo.setName(rs.getString(3));
         }catch (SQLException e){

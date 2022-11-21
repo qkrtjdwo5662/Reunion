@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
         welcomeLabel.setHorizontalAlignment(JLabel.CENTER);
         welcomePanel.add(welcomeLabel);
 
-        JLabel userIdLabel = new JLabel( "ID : " + vo.getId());
+        JLabel userIdLabel = new JLabel( "ID : " + vo.getUser_Id());
         userIdLabel.setBounds(100, 200, 300, 100);
         userIdLabel.setHorizontalAlignment(JLabel.CENTER);
         welcomePanel.add(userIdLabel);

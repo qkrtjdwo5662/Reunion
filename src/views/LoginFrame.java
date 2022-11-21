@@ -5,7 +5,6 @@ import databases.UserVO;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class LoginFrame extends JFrame {
     public JPanel loginPanel;
@@ -55,7 +54,6 @@ public class LoginFrame extends JFrame {
         loginBtn.setBounds(150, 160, 100, 30);
         loginPanel.add(loginBtn);
 
-
         //join 패널
         joinPanel = new JPanel();
         add(joinPanel);
@@ -97,7 +95,7 @@ public class LoginFrame extends JFrame {
         registerBtn.setBounds(255, 370, 100, 30);
         joinPanel.add(registerBtn);
 
-        setSize(800, 800);
+        setSize(500, 500);
         setVisible(true);
 
         add(loginPanel);
@@ -121,7 +119,7 @@ public class LoginFrame extends JFrame {
     }
     public void register(){
         vo = new UserVO();
-        vo.setId(id_JoinText.getText());
+        vo.setUser_Id(id_JoinText.getText());
         vo.setPassword(pw_JoinText.getText());
         vo.setName(name_JoinText.getText());
 
