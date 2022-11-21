@@ -4,7 +4,7 @@ import javax.security.auth.login.LoginException;
 import java.sql.*;
 
 public class UserDAO {
-    private Connection connection =new ConnectDB().getConnection();; // db연결 정보
+    private Connection connection =new ConnectDB().getConnection(); // db연결 정보
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
@@ -26,14 +26,14 @@ public class UserDAO {
         }
     }
     //CRUD
-    public boolean create(UserVO userDTO){
+    public boolean create(UserVO userVO){
         queryCheck = false;
         try{
             String sql = "INSERT INTO user(user_id, password, name) VALUES (?, ?, ?)";
             ps = connection.prepareStatement(sql);
-            ps.setString(1,userDTO.getUser_Id());
-            ps.setString(2,userDTO.getPassword());
-            ps.setString(3,userDTO.getName());
+            ps.setString(1,userVO.getUser_Id());
+            ps.setString(2,userVO.getPassword());
+            ps.setString(3,userVO.getName());
             int r = ps.executeUpdate();
             if(r>0){
                 queryCheck =true;
