@@ -17,15 +17,17 @@ public class MainFrame extends JFrame{
     private JPanel btnPanel;
     private ImageIcon icon;
     private JLabel imageLabel;
-    private JLabel textLabel;
+    private JLabel titleLabel;
     private JLabel welcomeLabel;
     private JLabel menuLabel;
+    private JLabel infoLabel;
     private JButton btn1;
     private JButton btn2;
     private JButton btn3;
     private JButton btn4;
     private JButton btn5;
     private JButton btn6;
+    private String info;
     public MainFrame(UserVO vo) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +36,8 @@ public class MainFrame extends JFrame{
         //프레임 패널 생성
         homePanel = new JPanel();
         btnPanel = new JPanel();
+
+        add(homePanel);
 
         homePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         homePanel.setLayout(null);
@@ -50,10 +54,10 @@ public class MainFrame extends JFrame{
         homePanel.add(imageLabel);
 
         //textlabel
-        textLabel = new JLabel("Renion");
-        textLabel.setBounds(200, 10, 331, 50);
-        homePanel.add(textLabel);
-        textLabel.setFont(font);
+        titleLabel = new JLabel("Reunion");
+        titleLabel.setBounds(200, 10, 331, 50);
+        homePanel.add(titleLabel);
+        titleLabel.setFont(font);
 
         welcomeLabel = new JLabel(vo.getName()+"님 환영합니다");
         welcomeLabel.setBounds(40,80,150,20);
@@ -64,11 +68,14 @@ public class MainFrame extends JFrame{
         menuLabel.setBounds(43, 10, 100, 20);
         btnPanel.add(menuLabel);
 
+        infoLabel = new JLabel(info);
+        infoLabel.setBounds(280,100,150,20);
+        homePanel.add(infoLabel);
         //menubutton 생성
-        btn1 = new JButton("멘토/멘티");
-        btn2 = new JButton("스터디");
+        btn1 = new JButton("Mentoring");
+        btn2 = new JButton("Study");
         btn3 = new JButton("스터디룸 예약");
-        btn4 = new JButton("졸업생 강연");
+        btn4 = new JButton("Lecture");
         btn5 = new JButton("글쓰기");
         btn6 = new JButton("검색");
 
@@ -118,10 +125,35 @@ public class MainFrame extends JFrame{
         homePanel.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
         homePanel.setBackground(Color.WHITE); // 배경색을 CYAN 색으로 변경
 
-        add(homePanel);
+
+        setSize(500,500);
         setVisible(true);
         setResizable(false);
-        setSize(500,500);
+
+        btn1.addActionListener(e -> {
+            //true -> false
+            imageLabel.setVisible(false);
+            //false -> true
+
+            //modify text
+            titleLabel.setText("Mentor");
+            infoLabel.setText(btn1.getText());
+        });
+        btn2.addActionListener(e->{
+            //true -> false
+            imageLabel.setVisible(false);
+            //false -> true
+
+            //modify text
+            titleLabel.setText("Study");
+            infoLabel.setText(btn2.getText());
+        });
+        btn3.addActionListener(e->{
+
+        });
+        btn4.addActionListener(e->{
+
+        });
 
     }
     public static void main(String[] args) {

@@ -1,77 +1,80 @@
 package views;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+import javax.swing.*;
+import java.awt.*;
 
 public class CreatePost extends JFrame {
-   public JPanel writePanel;
-   private JTextField titleText, contentsText, memberText,searchText;
+   public JPanel createPost_Panel;
+   private JTextField titleText, contentsText, memberText;
    private JButton makeBtn, backBtn;
-   
+   String selectArray[] = {"Mentoring","Study","Lecture"};
+   JComboBox<String> selectBox;
+   String select;
+   private JLabel categoryLabel;
+   private JLabel titleLabel;
+   private JLabel contentsLabel;
+   private JLabel memberLabel;
    public CreatePost() {
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setLocationRelativeTo(null);
-      
+
+
       //write 패널
-      writePanel = new JPanel();
-        add(writePanel);
-        writePanel.setLayout(null);
+      createPost_Panel = new JPanel();
+      add(createPost_Panel);
+      createPost_Panel.setLayout(null);
+
+      categoryLabel = new JLabel("분류");
+      categoryLabel.setBounds(50, 25,100,25);
+      createPost_Panel.add(categoryLabel);
+
+      selectBox = new JComboBox<>(selectArray);
+      selectBox.setBounds(45,45, 150, 25);
+      createPost_Panel.add(selectBox);
+
+      titleLabel = new JLabel("제목");
+      titleLabel.setBounds(50, 85,100,25);
+      createPost_Panel.add(titleLabel);
         
-        JLabel titlelabel = new JLabel("제목");
-        titlelabel.setBounds(80, 40,160,40);
-        writePanel.add(titlelabel);
+      contentsLabel = new JLabel("내용");
+      contentsLabel.setBounds(50,150,100,25);
+      createPost_Panel.add(contentsLabel);
         
-        JLabel contentslabel = new JLabel("내용");
-        contentslabel.setBounds(80,180,160,40);
-        writePanel.add(contentslabel);
+      memberLabel = new JLabel("참여 인원 수");
+      memberLabel.setBounds(50,310,100,25);
+      createPost_Panel.add(memberLabel);
         
-        JLabel memberlabel = new JLabel("참여 인원 수");
-        memberlabel.setBounds(80,470,160,40);
-        writePanel.add(memberlabel);
+      titleText = new JTextField();
+      titleText.setBounds(45, 105, 240, 30);
+      createPost_Panel.add(titleText);
+      titleText.setColumns(25);
         
-        titleText = new JTextField();
-        titleText.setBounds(80, 90, 400, 50);
-        writePanel.add(titleText);
-        titleText.setColumns(30);
+      contentsText = new JTextField();
+      contentsText.setBounds(45, 170, 240, 120);
+      createPost_Panel.add(contentsText);
+      contentsText.setColumns(25);
         
-        contentsText = new JTextField();
-        contentsText.setBounds(80, 230, 400, 200);
-        writePanel.add(contentsText);
-        contentsText.setColumns(30);
+      memberText = new JTextField();
+      memberText.setBounds(45, 330, 40, 30);
+      createPost_Panel.add(memberText);
+      memberText.setColumns(25);
         
-        memberText = new JTextField();
-        memberText.setBounds(80, 520, 400, 50);
-        writePanel.add(memberText);
-        memberText.setColumns(30);
+      makeBtn = new JButton("만들기");
+      makeBtn.setBounds(150, 400, 100, 30);
+      createPost_Panel.add(makeBtn);
         
-        makeBtn = new JButton("만들기");
-        makeBtn.setBounds(250, 660, 160, 48);
-        writePanel.add(makeBtn);
+      backBtn = new JButton("뒤로가기");
+      backBtn.setBounds(250, 400, 100, 30);
+      createPost_Panel.add(backBtn);
+
         
-        backBtn = new JButton("뒤로가기");
-        backBtn.setBounds(450, 660, 160, 48);
-        writePanel.add(backBtn);
-        
-        searchText = new JTextField();
-        searchText.setBounds(500, 600, 50, 50);
-        writePanel.add(searchText);
-        memberText.setColumns(30);
-        
-        setSize(800,800);
-        setVisible(true);
-        
-        makeBtn.addActionListener(e-> {
-        	if(searchText.isEnabled()==true) {
-        		searchText.setVisible(false);
-        	}else {
-        		searchText.setVisible(true);
-        	}
-        	
-            
-        });
+      setSize(500,500);
+      setVisible(true);
+      setResizable(false);
+
+      makeBtn.addActionListener(e->{
+         select = selectBox.getSelectedItem().toString();
+      });
+
 }
 
    public static void main(String[] args) {

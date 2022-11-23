@@ -97,6 +97,7 @@ public class LoginFrame extends JFrame {
 
         setSize(500, 500);
         setVisible(true);
+        setResizable(false);
 
         add(loginPanel);
         joinPanel.setVisible(false);
