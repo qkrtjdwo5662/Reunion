@@ -17,14 +17,11 @@ public class MainFrame extends JFrame{
 
     public JPanel createPost_Panel;
     private JTextField titleText, contentsText, memberText;
-    private JButton makeBtn, backBtn;
+    private JButton createBtn, backBtn;
     String selectArray[] = {"Mentoring","Study","Lecture"};
     JComboBox<String> selectBox;
     String select;
-    private JLabel categoryLabel;
-    private JLabel nameLabel;
-    private JLabel contentsLabel;
-    private JLabel memberLabel;
+    private JLabel categoryLabel, nameLabel, contentsLabel,memberLabel;
     public MainFrame(UserVO vo) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -162,9 +159,9 @@ public class MainFrame extends JFrame{
         createPost_Panel.add(memberText);
         memberText.setColumns(25);
 
-        makeBtn = new JButton("만들기");
-        makeBtn.setBounds(150, 400, 100, 30);
-        createPost_Panel.add(makeBtn);
+        createBtn = new JButton("만들기");
+        createBtn.setBounds(150, 400, 100, 30);
+        createPost_Panel.add(createBtn);
 
         backBtn = new JButton("뒤로가기");
         backBtn.setBounds(250, 400, 100, 30);
@@ -205,14 +202,14 @@ public class MainFrame extends JFrame{
 
             //modify text
             titleLabel.setText("Lecture");
-            infoLabel.setText(btn3.getText());
+            infoLabel.setText(btn4.getText());
         });
         btn5.addActionListener(e->{
             homePanel.setVisible(false);
             createPost_Panel.setVisible(true);
         });
 
-        makeBtn.addActionListener(e->{
+        createBtn.addActionListener(e->{
             select = selectBox.getSelectedItem().toString();
             System.out.println(select);
         });

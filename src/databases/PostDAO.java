@@ -25,11 +25,13 @@ public class PostDAO {
     public void create(PostVO postVO){
         queryCheck = false;
         try {
-            String sql = "INSERT INTO post(post_Id, content, createDate) VALUES (?,?,?)";
+            String sql = "INSERT INTO post(post_Id, category, content, createDate, user_Id) VALUES (?,?,?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setInt(1,postVO.getPost_Id());
-            ps.setString(2,postVO.getContent());
-            ps.setDate(3, (Date) postVO.getCreateDate());
+            ps.setString(2,postVO.getCategory());
+            ps.setString(3,postVO.getContent());
+            ps.setDate(4, (Date) postVO.getCreateDate());
+            ps.setString(5, postVO.getUser_Id());
             int r = ps.executeUpdate();
             if(r>0){ //query
                 queryCheck = true;
