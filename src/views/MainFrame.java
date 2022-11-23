@@ -18,6 +18,7 @@ public class MainFrame extends JFrame{
     public JPanel createPost_Panel;
     private JTextField titleText, contentsText, memberText;
     private JButton createBtn, backBtn;
+    private JTextArea contentsArea,TextArea;
     String selectArray[] = {"Mentoring","Study","Lecture"};
     JComboBox<String> selectBox;
     String select;
@@ -26,6 +27,7 @@ public class MainFrame extends JFrame{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);// window center
+        
 
 
         //프레임 패널 생성
@@ -123,6 +125,7 @@ public class MainFrame extends JFrame{
         createPost_Panel = new JPanel();
         add(createPost_Panel);
         createPost_Panel.setLayout(null);
+        
 
         categoryLabel = new JLabel("분류");
         categoryLabel.setBounds(50, 25,100,25);
@@ -149,10 +152,15 @@ public class MainFrame extends JFrame{
         createPost_Panel.add(titleText);
         titleText.setColumns(25);
 
-        contentsText = new JTextField();
+       /* contentsText = new JTextField();
         contentsText.setBounds(45, 170, 240, 120);
         createPost_Panel.add(contentsText);
-        contentsText.setColumns(25);
+        contentsText.setColumns(25);*/
+        
+        JTextArea contentsArea = new JTextArea("내용을 입력",10,10);
+        createPost_Panel.add(contentsArea);
+        contentsArea.setBounds(45, 170, 240, 120);
+        contentsArea.setColumns(25);
 
         memberText = new JTextField();
         memberText.setBounds(45, 330, 40, 30);
