@@ -7,11 +7,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class LoginFrame extends JFrame {
-    public JPanel loginPanel;
+    private JPanel loginPanel;
     private JTextField id_LoginText, pw_LoginText;
     private JButton loginBtn, joinBtn;
 
-    public JPanel joinPanel;
+    private JPanel joinPanel;
     private JTextField id_JoinText, pw_JoinText, name_JoinText;
     private JButton backBtn,registerBtn;
 
@@ -152,7 +152,7 @@ public class LoginFrame extends JFrame {
             JOptionPane.showMessageDialog(null, "로그인 성공");
             setVisible(false);
 
-            MainFrame mainFrame = new MainFrame(userVO);
+            MainFrame mf = new MainFrame(userVO);
         }else{
             JOptionPane.showMessageDialog(null, "로그인 정보를 확인하세요");
         }
