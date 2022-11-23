@@ -1,8 +1,7 @@
 package views;
 import javax.swing.*;
-import java.awt.*;
 
-public class CreatePost extends JFrame {
+public class CreatePost extends JPanel {
    public JPanel createPost_Panel;
    private JTextField titleText, contentsText, memberText;
    private JButton makeBtn, backBtn;
@@ -10,13 +9,10 @@ public class CreatePost extends JFrame {
    JComboBox<String> selectBox;
    String select;
    private JLabel categoryLabel;
-   private JLabel titleLabel;
+   private JLabel nameLabel;
    private JLabel contentsLabel;
    private JLabel memberLabel;
    public CreatePost() {
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setLocationRelativeTo(null);
-
 
       //write 패널
       createPost_Panel = new JPanel();
@@ -31,9 +27,9 @@ public class CreatePost extends JFrame {
       selectBox.setBounds(45,45, 150, 25);
       createPost_Panel.add(selectBox);
 
-      titleLabel = new JLabel("제목");
-      titleLabel.setBounds(50, 85,100,25);
-      createPost_Panel.add(titleLabel);
+      nameLabel = new JLabel("제목");
+      nameLabel.setBounds(50, 85,100,25);
+      createPost_Panel.add(nameLabel);
         
       contentsLabel = new JLabel("내용");
       contentsLabel.setBounds(50,150,100,25);
@@ -66,10 +62,9 @@ public class CreatePost extends JFrame {
       backBtn.setBounds(250, 400, 100, 30);
       createPost_Panel.add(backBtn);
 
-        
+
       setSize(500,500);
       setVisible(true);
-      setResizable(false);
 
       makeBtn.addActionListener(e->{
          select = selectBox.getSelectedItem().toString();

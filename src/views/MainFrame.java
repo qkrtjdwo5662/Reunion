@@ -5,38 +5,35 @@ import databases.UserVO;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class MainFrame extends JFrame{
-    private JPanel homePanel;
-    private JPanel btnPanel;
+    private JPanel homePanel,btnPanel;
     private ImageIcon icon;
-    private JLabel imageLabel;
-    private JLabel titleLabel;
-    private JLabel welcomeLabel;
-    private JLabel menuLabel;
-    private JLabel infoLabel;
-    private JButton btn1;
-    private JButton btn2;
-    private JButton btn3;
-    private JButton btn4;
-    private JButton btn5;
-    private JButton btn6;
+    private JLabel imageLabel,titleLabel,welcomeLabel,menuLabel,infoLabel;
+    private JButton btn1,btn2,btn3,btn4,btn5,btn6;
     private String info;
+
+    public JPanel createPost_Panel;
+    private JTextField titleText, contentsText, memberText;
+    private JButton makeBtn, backBtn;
+    String selectArray[] = {"Mentoring","Study","Lecture"};
+    JComboBox<String> selectBox;
+    String select;
+    private JLabel categoryLabel;
+    private JLabel nameLabel;
+    private JLabel contentsLabel;
+    private JLabel memberLabel;
     public MainFrame(UserVO vo) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);// window center
 
+
         //프레임 패널 생성
         homePanel = new JPanel();
         btnPanel = new JPanel();
-
         add(homePanel);
 
         homePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -125,10 +122,60 @@ public class MainFrame extends JFrame{
         homePanel.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
         homePanel.setBackground(Color.WHITE); // 배경색을 CYAN 색으로 변경
 
+        //write 패널
+        createPost_Panel = new JPanel();
+        add(createPost_Panel);
+        createPost_Panel.setLayout(null);
+
+        categoryLabel = new JLabel("분류");
+        categoryLabel.setBounds(50, 25,100,25);
+        createPost_Panel.add(categoryLabel);
+
+        selectBox = new JComboBox<>(selectArray);
+        selectBox.setBounds(45,45, 150, 25);
+        createPost_Panel.add(selectBox);
+
+        nameLabel = new JLabel("제목");
+        nameLabel.setBounds(50, 85,100,25);
+        createPost_Panel.add(nameLabel);
+
+        contentsLabel = new JLabel("내용");
+        contentsLabel.setBounds(50,150,100,25);
+        createPost_Panel.add(contentsLabel);
+
+        memberLabel = new JLabel("참여 인원 수");
+        memberLabel.setBounds(50,310,100,25);
+        createPost_Panel.add(memberLabel);
+
+        titleText = new JTextField();
+        titleText.setBounds(45, 105, 240, 30);
+        createPost_Panel.add(titleText);
+        titleText.setColumns(25);
+
+        contentsText = new JTextField();
+        contentsText.setBounds(45, 170, 240, 120);
+        createPost_Panel.add(contentsText);
+        contentsText.setColumns(25);
+
+        memberText = new JTextField();
+        memberText.setBounds(45, 330, 40, 30);
+        createPost_Panel.add(memberText);
+        memberText.setColumns(25);
+
+        makeBtn = new JButton("만들기");
+        makeBtn.setBounds(150, 400, 100, 30);
+        createPost_Panel.add(makeBtn);
+
+        backBtn = new JButton("뒤로가기");
+        backBtn.setBounds(250, 400, 100, 30);
+        createPost_Panel.add(backBtn);
 
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+
+        add(homePanel);
+        createPost_Panel.setVisible(false);
 
         btn1.addActionListener(e -> {
             //true -> false
@@ -152,7 +199,26 @@ public class MainFrame extends JFrame{
 
         });
         btn4.addActionListener(e->{
+            //true -> false
+            imageLabel.setVisible(false);
+            //false -> true
 
+            //modify text
+            titleLabel.setText("Lecture");
+            infoLabel.setText(btn3.getText());
+        });
+        btn5.addActionListener(e->{
+            homePanel.setVisible(false);
+            createPost_Panel.setVisible(true);
+        });
+
+        makeBtn.addActionListener(e->{
+            select = selectBox.getSelectedItem().toString();
+            System.out.println(select);
+        });
+        backBtn.addActionListener(e->{
+            homePanel.setVisible(true);
+            createPost_Panel.setVisible(false);
         });
 
     }
