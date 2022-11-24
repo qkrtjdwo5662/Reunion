@@ -22,15 +22,15 @@ public class PostDAO {
             System.out.println(e + "dbClose fail");
         }
     }
-    public void create(PostVO postVO){
+    public boolean create(PostVO postVO){
         queryCheck = false;
         try {
-            String sql = "INSERT INTO post(post_Id, category, content, createDate, user_Id) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO post VALUES (null, ?, ?, ?, ?, ?)";
             ps = connection.prepareStatement(sql);
-            ps.setInt(1,postVO.getPost_Id());
-            ps.setString(2,postVO.getCategory());
+            ps.setString(1,postVO.getCategory());
+            ps.setString(2,postVO.getTitle());
             ps.setString(3,postVO.getContent());
-            ps.setDate(4, (Date) postVO.getCreateDate());
+            ps.setInt(4,postVO.getLimit());
             ps.setString(5, postVO.getUser_Id());
             int r = ps.executeUpdate();
             if(r>0){ //query
@@ -41,6 +41,7 @@ public class PostDAO {
         }finally {
             databasesClose();
         }
+        return queryCheck;
     }
     public void update(){
 

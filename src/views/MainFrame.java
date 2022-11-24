@@ -1,9 +1,16 @@
 package views;
 
+import databases.PostDAO;
+import databases.PostVO;
 import databases.UserVO;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,18 +23,19 @@ public class MainFrame extends JFrame{
     private String info;
 
     public JPanel createPost_Panel;
-    private JTextField titleText, contentsText, memberText;
+    private JTextField titleText, memberText;
     private JButton createBtn, backBtn;
     private JTextArea contentsArea,TextArea;
     String selectArray[] = {"Mentoring","Study","Lecture"};
     JComboBox<String> selectBox;
     String select;
     private JLabel categoryLabel, nameLabel, contentsLabel,memberLabel;
+    PostVO postVO;
+    UserVO userVO;
     public MainFrame(UserVO vo) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);// window center
-        
 
 
         //프레임 패널 생성
@@ -151,13 +159,8 @@ public class MainFrame extends JFrame{
         titleText.setBounds(45, 105, 240, 30);
         createPost_Panel.add(titleText);
         titleText.setColumns(25);
-
-       /* contentsText = new JTextField();
-        contentsText.setBounds(45, 170, 240, 120);
-        createPost_Panel.add(contentsText);
-        contentsText.setColumns(25);*/
         
-        JTextArea contentsArea = new JTextArea("내용을 입력",10,10);
+        contentsArea = new JTextArea("",10,10);
         createPost_Panel.add(contentsArea);
         contentsArea.setBounds(45, 170, 240, 120);
         contentsArea.setColumns(25);
@@ -215,17 +218,41 @@ public class MainFrame extends JFrame{
         btn5.addActionListener(e->{
             homePanel.setVisible(false);
             createPost_Panel.setVisible(true);
+            System.out.println(vo.getUser_Id());
         });
 
         createBtn.addActionListener(e->{
             select = selectBox.getSelectedItem().toString();
             System.out.println(select);
+            try {
+                create(vo);
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         backBtn.addActionListener(e->{
             homePanel.setVisible(true);
             createPost_Panel.setVisible(false);
         });
 
+    }
+    public void create(UserVO vo) throws ParseException {
+
+        postVO = new PostVO();
+        postVO.setCategory(selectBox.getSelectedItem().toString());
+        postVO.setTitle(titleText.getText());
+        postVO.setContent(contentsArea.getText());
+        postVO.setLimit(Integer.parseInt(memberText.getText()));
+        postVO.setUser_Id(vo.getUser_Id());
+
+        PostDAO postDAO = new PostDAO();
+        if(postDAO.create(postVO)){
+            JOptionPane.showMessageDialog(null,"글생성완료");
+            createPost_Panel.setVisible(false);
+            homePanel.setVisible(true);
+        }else {
+            JOptionPane.showMessageDialog(null,"글생성실패");
+        }
     }
     public static void main(String[] args) {
         UserVO vo = new UserVO();
