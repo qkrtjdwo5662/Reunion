@@ -31,7 +31,8 @@ public class MainFrame extends JFrame{
     String select;
     private JLabel categoryLabel, nameLabel, contentsLabel,memberLabel;
     PostVO postVO;
-    UserVO userVO;
+
+    private JButton study;
     public MainFrame(UserVO vo) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,6 +42,7 @@ public class MainFrame extends JFrame{
         //프레임 패널 생성
         homePanel = new JPanel();
         btnPanel = new JPanel();
+        JPanel test = new JPanel();
         add(homePanel);
 
         homePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -185,13 +187,20 @@ public class MainFrame extends JFrame{
         add(homePanel);
         createPost_Panel.setVisible(false);
 
+        JButton study1 = new JButton("C언어 스터디 사람 모집!");
+        JButton study2 = new JButton("JAVA 스터디 사람 구해요.");
+        JButton study3 = new JButton("웹프 스터디 할분 !!");
+
+        study1.setBounds(150, 115, 250, 50);
+        test.add(study1);
+        study1.setBackground(Color.blue);
         btn1.addActionListener(e -> {
             //true -> false
             imageLabel.setVisible(false);
             //false -> true
 
             //modify text
-            titleLabel.setText("Mentor");
+            titleLabel.setText("Mentoring");
             infoLabel.setText(btn1.getText());
         });
         btn2.addActionListener(e->{
@@ -202,6 +211,9 @@ public class MainFrame extends JFrame{
             //modify text
             titleLabel.setText("Study");
             infoLabel.setText(btn2.getText());
+            study1.setVisible(true);
+
+
         });
         btn3.addActionListener(e->{
 

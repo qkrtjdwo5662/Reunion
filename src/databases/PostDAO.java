@@ -1,6 +1,7 @@
 package databases;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class PostDAO {
     private Connection connection = new ConnectDB().getConnection();
@@ -42,6 +43,29 @@ public class PostDAO {
             databasesClose();
         }
         return queryCheck;
+    }
+    public ArrayList<PostVO> readMentoring(){
+        ArrayList<PostVO> arrayList = new ArrayList<PostVO>();
+        try {
+            String sql = "SELECT * FROM post WHERE category=?";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1,"Mentoring");
+
+            rs = ps.executeQuery(sql);
+            while (rs.next())
+            {
+                arrayList.add(new PostVO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),
+                        rs.getInt(5),rs.getString(6)
+                ));
+            }
+
+
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            databasesClose();
+        }
+        return arrayList;
     }
     public void update(){
 

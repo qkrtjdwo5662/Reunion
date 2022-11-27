@@ -141,7 +141,7 @@ public class StudyFrame extends JFrame{
         frame.setSize(500,500);
     }
     public static void main(String[] args) {
-        new StudyFrame();
+        StudyFrame sf= new StudyFrame();
     }
 
 }
