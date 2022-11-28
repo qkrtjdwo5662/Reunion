@@ -34,6 +34,7 @@ public class MainFrame extends JFrame{
     PostVO postVO;
     PostDAO postDAO;
     ArrayList<PostVO> arrayList;
+    JButton[] btn = new JButton[10];
 
     private JButton study;
     public MainFrame(UserVO vo) {
@@ -190,13 +191,7 @@ public class MainFrame extends JFrame{
         add(homePanel);
         createPost_Panel.setVisible(false);
 
-        JButton study1 = new JButton("C언어 스터디 사람 모집!");
-        JButton study2 = new JButton("JAVA 스터디 사람 구해요.");
-        JButton study3 = new JButton("웹프 스터디 할분 !!");
 
-        study1.setBounds(150, 115, 250, 50);
-        test.add(study1);
-        study1.setBackground(Color.blue);
         btn1.addActionListener(e -> {
             //true -> false
             imageLabel.setVisible(false);
@@ -208,6 +203,15 @@ public class MainFrame extends JFrame{
             postDAO = new PostDAO();
             arrayList =new ArrayList<PostVO>();
             arrayList = postDAO.read(btn1.getText());
+            System.out.println(arrayList.size());
+
+
+            for(int i=0; i<arrayList.size(); i++)
+            {
+                btn[i] = new JButton(arrayList.get(i).getTitle());
+                btn[i].setBounds(150, 115+50*i, 250, 50);;
+                homePanel.add(btn[i]);
+            }
             System.out.println(arrayList.size());
 
         });
@@ -222,6 +226,14 @@ public class MainFrame extends JFrame{
             postDAO = new PostDAO();
             arrayList =new ArrayList<PostVO>();
             arrayList = postDAO.read(btn2.getText());
+            System.out.println(arrayList.size());
+
+            for(int i=0; i<arrayList.size(); i++)
+            {
+                btn[i] = new JButton(arrayList.get(i).getTitle());
+                btn[i].setBounds(150, 115+50*i, 250, 50);;
+                homePanel.add(btn[i]);
+            }
             System.out.println(arrayList.size());
 
 
@@ -240,6 +252,17 @@ public class MainFrame extends JFrame{
             postDAO = new PostDAO();
             arrayList =new ArrayList<PostVO>();
             arrayList = postDAO.read(btn4.getText());
+
+            for(int i=0; i<arrayList.size(); i++)
+            {
+                btn[i] = new JButton(arrayList.get(i).getTitle());
+                btn[i].setBounds(150, 115+50*i, 250, 50);;
+                homePanel.add(btn[i]);
+            }
+            for(int i=0; i<btn.length; i++)
+            {
+                btn[i].removeAll();
+            }
             System.out.println(arrayList.size());
         });
         btn5.addActionListener(e->{
