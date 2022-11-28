@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.*;
@@ -31,6 +32,8 @@ public class MainFrame extends JFrame{
     String select;
     private JLabel categoryLabel, nameLabel, contentsLabel,memberLabel;
     PostVO postVO;
+    PostDAO postDAO;
+    ArrayList<PostVO> arrayList;
 
     private JButton study;
     public MainFrame(UserVO vo) {
@@ -202,6 +205,11 @@ public class MainFrame extends JFrame{
             //modify text
             titleLabel.setText("Mentoring");
             infoLabel.setText(btn1.getText());
+            postDAO = new PostDAO();
+            arrayList =new ArrayList<PostVO>();
+            arrayList = postDAO.read(btn1.getText());
+            System.out.println(arrayList.size());
+
         });
         btn2.addActionListener(e->{
             //true -> false
@@ -211,7 +219,10 @@ public class MainFrame extends JFrame{
             //modify text
             titleLabel.setText("Study");
             infoLabel.setText(btn2.getText());
-            study1.setVisible(true);
+            postDAO = new PostDAO();
+            arrayList =new ArrayList<PostVO>();
+            arrayList = postDAO.read(btn2.getText());
+            System.out.println(arrayList.size());
 
 
         });
@@ -226,6 +237,10 @@ public class MainFrame extends JFrame{
             //modify text
             titleLabel.setText("Lecture");
             infoLabel.setText(btn4.getText());
+            postDAO = new PostDAO();
+            arrayList =new ArrayList<PostVO>();
+            arrayList = postDAO.read(btn4.getText());
+            System.out.println(arrayList.size());
         });
         btn5.addActionListener(e->{
             homePanel.setVisible(false);
