@@ -1,2 +1,3 @@
 # Reunion
-Hansung University College of IT Engineering Student Council Management App
+to pursure meeting application
+for Hansung University College of IT Engineering Student 
