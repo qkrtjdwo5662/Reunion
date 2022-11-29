@@ -1,5 +1,6 @@
 package views;
 
+import com.sun.tools.javac.Main;
 import databases.PostDAO;
 import databases.PostVO;
 import databases.UserVO;
@@ -14,21 +15,23 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class MainFrame extends JFrame implements ActionListener {
+public class MainFrame extends JFrame {
     private JPanel homePanel,btnPanel;
     private ImageIcon icon;
     private JLabel imageLabel,titleLabel,welcomeLabel,menuLabel,infoLabel;
     private JButton btn1,btn2,btn3,btn4,btn5,btn6;
     private String info;
-
-    public JPanel createPost_Panel;
+    //--------------------------------------------------------------------//
+    public JPanel createPostPanel;
     private JTextField titleText, memberText;
     private JButton createBtn, backBtn;
     private JTextArea contentsArea;
+    private JLabel categoryLabel, nameLabel, contentsLabel,memberLabel;
+    //--------------------------------------------------------------------//
     String selectArray[] = {"Mentoring","Study","Lecture"};
     JComboBox<String> selectBox;
     String select;
-    private JLabel categoryLabel, nameLabel, contentsLabel,memberLabel;
+
     PostVO postVO;
     PostDAO postDAO;
     ArrayList<PostVO> arrayList;
@@ -36,8 +39,7 @@ public class MainFrame extends JFrame implements ActionListener {
     JButton[] studyBtn = new JButton[10];
     JButton[] lectureBtn = new JButton[10];
 
-    private JButton study;
-    public MainFrame(UserVO vo) {
+    public MainFrame(UserVO userVO) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);// window center
@@ -63,7 +65,7 @@ public class MainFrame extends JFrame implements ActionListener {
         homePanel.add(titleLabel);
         titleLabel.setFont(font);
 
-        welcomeLabel = new JLabel(vo.getName()+"님 환영합니다");
+        welcomeLabel = new JLabel(userVO.getName()+"님 환영합니다");
         welcomeLabel.setBounds(40,80,150,20);
         homePanel.add(welcomeLabel);
 
@@ -82,7 +84,7 @@ public class MainFrame extends JFrame implements ActionListener {
         btn5 = new JButton("글쓰기");
         btn6 = new JButton("검색");
 
-
+        //--------------------------------------------------------------------//
         btnPanel.setBounds(30, 115, 120, 210);
         btnPanel.setOpaque(true);
         btnPanel.setBackground(Color.GRAY);
@@ -121,60 +123,63 @@ public class MainFrame extends JFrame implements ActionListener {
         homePanel.setOpaque(true);
         homePanel.setBackground(Color.WHITE);
 
-        createPost_Panel = new JPanel();
-        add(createPost_Panel);
-        createPost_Panel.setLayout(null);
-        
+        //--------------------------------------------------------------------//
+        createPostPanel = new JPanel();
+        add(createPostPanel);
+        createPostPanel.setLayout(null);
 
         categoryLabel = new JLabel("분류");
         categoryLabel.setBounds(50, 25,100,25);
-        createPost_Panel.add(categoryLabel);
+        createPostPanel.add(categoryLabel);
 
         selectBox = new JComboBox<>(selectArray);
         selectBox.setBounds(45,45, 150, 25);
-        createPost_Panel.add(selectBox);
+        createPostPanel.add(selectBox);
 
         nameLabel = new JLabel("제목");
         nameLabel.setBounds(50, 85,100,25);
-        createPost_Panel.add(nameLabel);
+        createPostPanel.add(nameLabel);
 
         contentsLabel = new JLabel("내용");
         contentsLabel.setBounds(50,150,100,25);
-        createPost_Panel.add(contentsLabel);
+        createPostPanel.add(contentsLabel);
 
         memberLabel = new JLabel("참여 인원 수");
         memberLabel.setBounds(50,310,100,25);
-        createPost_Panel.add(memberLabel);
+        createPostPanel.add(memberLabel);
 
         titleText = new JTextField();
         titleText.setBounds(45, 105, 240, 30);
-        createPost_Panel.add(titleText);
+        createPostPanel.add(titleText);
         titleText.setColumns(25);
         
         contentsArea = new JTextArea("",10,10);
-        createPost_Panel.add(contentsArea);
+        createPostPanel.add(contentsArea);
         contentsArea.setBounds(45, 170, 240, 120);
         contentsArea.setColumns(25);
 
         memberText = new JTextField();
         memberText.setBounds(45, 330, 40, 30);
-        createPost_Panel.add(memberText);
+        createPostPanel.add(memberText);
         memberText.setColumns(25);
 
         createBtn = new JButton("만들기");
         createBtn.setBounds(150, 400, 100, 30);
-        createPost_Panel.add(createBtn);
+        createPostPanel.add(createBtn);
 
         backBtn = new JButton("뒤로가기");
         backBtn.setBounds(250, 400, 100, 30);
-        createPost_Panel.add(backBtn);
+        createPostPanel.add(backBtn);
+
+        //--------------------------------------------------------------------//
+
 
         setSize(500,500);
         setVisible(true);
         setResizable(false);
 
         add(homePanel);
-        createPost_Panel.setVisible(false);
+        createPostPanel.setVisible(false);
 
         for(int i=0; i<10; i++){
             mentoringBtn[i] = new JButton();
@@ -217,7 +222,8 @@ public class MainFrame extends JFrame implements ActionListener {
                 homePanel.add(mentoringBtn[i]);
                 mentoringBtn[i].setVisible(true);
                 mentoringBtn[i].addActionListener(e1 -> {
-                    System.out.println("good");
+                    setVisible(false);
+                    PostFrame pf = new PostFrame(userVO);
                 });
             }
 
@@ -260,7 +266,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 homePanel.add(studyBtn[i]);
                 studyBtn[i].setVisible(true);
                 studyBtn[i].addActionListener(e1 -> {
-                    System.out.println("good");
+                    setVisible(false);
                 });
             }
 
@@ -306,7 +312,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 homePanel.add(lectureBtn[i]);
                 lectureBtn[i].setVisible(true);
                 lectureBtn[i].addActionListener(e1 -> {
-                    System.out.println("good");
+                    setVisible(false);
                 });
             }
 
@@ -315,34 +321,28 @@ public class MainFrame extends JFrame implements ActionListener {
         });
         btn5.addActionListener(e->{
             homePanel.setVisible(false);
-            createPost_Panel.setVisible(true);
+            createPostPanel.setVisible(true);
         });
 
         createBtn.addActionListener(e->{
             select = selectBox.getSelectedItem().toString();
             System.out.println(select);
             try {
-                create(vo);
+                create(userVO);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
         });
         backBtn.addActionListener(e->{
             homePanel.setVisible(true);
-            createPost_Panel.setVisible(false);
+            createPostPanel.setVisible(false);
             titleText.setText("");
             contentsArea.setText("");
             memberText.setText("");
         });
 
 
-    }
-    @Override
-    public void actionPerformed(ActionEvent e){
-            for(int i=0; i<10; i++){
-                mentoringBtn[i] = (JButton) e.getSource();
-            }
-            System.out.println("good");
+
     }
     public void create(UserVO vo) throws ParseException {
 
@@ -356,7 +356,7 @@ public class MainFrame extends JFrame implements ActionListener {
         PostDAO postDAO = new PostDAO();
         if(postDAO.create(postVO)){
             JOptionPane.showMessageDialog(null,"글생성완료");
-            createPost_Panel.setVisible(false);
+            createPostPanel.setVisible(false);
             homePanel.setVisible(true);
         }else {
             JOptionPane.showMessageDialog(null,"글생성실패");

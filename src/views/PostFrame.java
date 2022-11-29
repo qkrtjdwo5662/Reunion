@@ -1,4 +1,6 @@
 package views;
+import databases.UserVO;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -6,49 +8,49 @@ import javax.swing.border.EmptyBorder;
 public class PostFrame extends JFrame {
     public JPanel postPanel;
     private JButton postApplyBtn, postBackBtn;
+    private JLabel postTitleLabel, postWriterLabel1, postWriterLabel2, postFixedNumberLabel1, postFixedNumberLabel2, postContentLabel;
 
-
-    PostFrame(){
+    public PostFrame(UserVO userVO){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
-        postPanel = new postPanel();
+        postPanel = new JPanel();
         add(postPanel);
-        postPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         postPanel.setLayout(null);
 
-        JLabel titleLabel=new JLabel("**Title**",JLabel.CENTER);
-        titleLabel.setBounds(150,50,200,60);
-        titleLabel.setFont(new Font("Selif",Font.BOLD,30));
-        postPanel.add(titleLabel);
-        JLabel writerlabel1 = new JLabel("작성자 :");
-        writerlabel1.setBounds(100,100,50,40);
-        writerlabel1.setFont(new Font("Selif",Font.PLAIN,11));
-        writerlabel1.setForeground(Color.GRAY);
-        postPanel.add(writerlabel1);
+        postTitleLabel =new JLabel("**Title**",JLabel.CENTER);
+        postTitleLabel.setBounds(150,50,200,60);
+        postTitleLabel.setFont(new Font("Selif",Font.BOLD,30));
+        postPanel.add(postTitleLabel);
+        
+        postWriterLabel1 = new JLabel("작성자 :");
+        postWriterLabel1.setBounds(100,100,50,40);
+        postWriterLabel1.setFont(new Font("Selif",Font.PLAIN,11));
+        postWriterLabel1.setForeground(Color.GRAY);
+        postPanel.add(postWriterLabel1);
 
-        JLabel writerlabel2 = new JLabel("qkrtjdwo5662");
-        writerlabel2.setBounds(150,100,100,40);
-        writerlabel2.setFont(new Font("Selif",Font.PLAIN,11));
-        writerlabel2.setForeground(Color.GRAY);
-        postPanel.add(writerlabel2);
+        postWriterLabel2 = new JLabel("qkrtjdwo5662");
+        postWriterLabel2.setBounds(150,100,100,40);
+        postWriterLabel2.setFont(new Font("Selif",Font.PLAIN,11));
+        postWriterLabel2.setForeground(Color.GRAY);
+        postPanel.add(postWriterLabel2);
 
-        JLabel memberlabel1 = new JLabel("잔여인원 :");
-        memberlabel1.setBounds(280,100,50,40);
-        memberlabel1.setFont(new Font("Selif",Font.PLAIN,11));
-        memberlabel1.setForeground(Color.GRAY);
-        postPanel.add(memberlabel1);
+        postFixedNumberLabel1 = new JLabel("잔여인원 :");
+        postFixedNumberLabel1.setBounds(280,100,50,40);
+        postFixedNumberLabel1.setFont(new Font("Selif",Font.PLAIN,11));
+        postFixedNumberLabel1.setForeground(Color.GRAY);
+        postPanel.add(postFixedNumberLabel1);
 
-        JLabel memberlabel2 = new JLabel("1/3");
-        memberlabel2.setBounds(330,100,300,40);
-        memberlabel2.setFont(new Font("Selif",Font.PLAIN,11));
-        memberlabel2.setForeground(Color.GRAY);
-        postPanel.add(memberlabel2);
+        postFixedNumberLabel2 = new JLabel("1/3");
+        postFixedNumberLabel2.setBounds(330,100,300,40);
+        postFixedNumberLabel2.setFont(new Font("Selif",Font.PLAIN,11));
+        postFixedNumberLabel2.setForeground(Color.GRAY);
+        postPanel.add(postFixedNumberLabel2);
 
 
-        JLabel contentslabel = new JLabel("안녕하세요 객체지향언어2 유상미 교수님 강의듣는 2학년 학생입니다.",JLabel.CENTER);
-        contentslabel.setBounds(40, 75, 400, 200);
-        postPanel.add(contentslabel);
+        postContentLabel = new JLabel("안녕하세요 객체지향언어2 유상미 교수님 강의듣는 2학년 학생입니다.",JLabel.CENTER);
+        postContentLabel.setBounds(40, 75, 400, 200);
+        postPanel.add(postContentLabel);
 
         postBackBtn = new JButton("뒤로가기");
         postBackBtn.setBounds(250, 400, 100, 30);
@@ -63,6 +65,11 @@ public class PostFrame extends JFrame {
         postPanel.setBackground(Color.white);
         this.setSize(500,500);
         this.setVisible(true);
+
+        postBackBtn.addActionListener(e->{
+            MainFrame mf = new MainFrame(userVO);
+            setVisible(false);
+        });
     }
     class postPanel extends JPanel{
         public void paintComponent(Graphics g){
@@ -77,7 +84,8 @@ public class PostFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        PostFrame tf = new PostFrame();
+        UserVO userVO = new UserVO();
+        PostFrame tf = new PostFrame(userVO);
 
     }
 
