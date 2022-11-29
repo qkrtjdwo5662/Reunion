@@ -6,17 +6,15 @@ import databases.UserVO;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame implements ActionListener {
     private JPanel homePanel,btnPanel;
     private ImageIcon icon;
     private JLabel imageLabel,titleLabel,welcomeLabel,menuLabel,infoLabel;
@@ -26,7 +24,7 @@ public class MainFrame extends JFrame{
     public JPanel createPost_Panel;
     private JTextField titleText, memberText;
     private JButton createBtn, backBtn;
-    private JTextArea contentsArea,TextArea;
+    private JTextArea contentsArea;
     String selectArray[] = {"Mentoring","Study","Lecture"};
     JComboBox<String> selectBox;
     String select;
@@ -44,11 +42,8 @@ public class MainFrame extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);// window center
 
-
-        //프레임 패널 생성
         homePanel = new JPanel();
         btnPanel = new JPanel();
-        JPanel test = new JPanel();
         add(homePanel);
 
         homePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,16 +51,13 @@ public class MainFrame extends JFrame{
         btnPanel.setLayout(null);
         Font font = new Font("Arial", Font.BOLD, 20);
 
-        //image
         icon = new ImageIcon("image1/rogo.jpg"); // 이미지 로딩
         imageLabel = new JLabel(icon); // 이미지 레이블 만들기
 
-        //이미지 레이블의 크기와 위치 지정
         imageLabel.setSize(icon.getIconHeight(),icon.getIconWidth());
         imageLabel.setLocation(200,80);
         homePanel.add(imageLabel);
 
-        //textlabel
         titleLabel = new JLabel("Reunion");
         titleLabel.setBounds(200, 10, 331, 50);
         homePanel.add(titleLabel);
@@ -75,7 +67,6 @@ public class MainFrame extends JFrame{
         welcomeLabel.setBounds(40,80,150,20);
         homePanel.add(welcomeLabel);
 
-        //menulabel
         menuLabel = new JLabel("MENU");
         menuLabel.setBounds(43, 10, 100, 20);
         btnPanel.add(menuLabel);
@@ -83,7 +74,7 @@ public class MainFrame extends JFrame{
         infoLabel = new JLabel(info);
         infoLabel.setBounds(280,100,150,20);
         homePanel.add(infoLabel);
-        //menubutton 생성
+
         btn1 = new JButton("Mentoring");
         btn2 = new JButton("Study");
         btn3 = new JButton("스터디룸 예약");
@@ -91,53 +82,45 @@ public class MainFrame extends JFrame{
         btn5 = new JButton("글쓰기");
         btn6 = new JButton("검색");
 
-        //btnpanel panel에 추가
+
         btnPanel.setBounds(30, 115, 120, 210);
-        btnPanel.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
-        btnPanel.setBackground(Color.GRAY); // 배경색을 CYAN 색으로 변경
+        btnPanel.setOpaque(true);
+        btnPanel.setBackground(Color.GRAY);
         homePanel.add(btnPanel);
 
-        //멘토/멘티 버튼 설정
+
         btn1.setBounds(0, 50, 120, 30);
-        btn1.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
-        btn1.setBackground(Color.GRAY); // 배경색을 CYAN 색으로 변경
+        btn1.setOpaque(true);
+        btn1.setBackground(Color.GRAY);
         btnPanel.add(btn1);
 
         //스터디 버튼 설정
         btn2.setBounds(0, 90, 120, 30);
-        btn2.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
-        btn2.setBackground(Color.GRAY); // 배경색을 CYAN 색으로 변경
+        btn2.setOpaque(true);
+        btn2.setBackground(Color.GRAY);
         btnPanel.add(btn2);
 
         //스터디룸 버튼 설정
         btn3.setBounds(0, 130, 120, 30);
-        btn3.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
-        btn3.setBackground(Color.GRAY); // 배경색을 CYAN 색으로 변경
+        btn3.setOpaque(true);
+        btn3.setBackground(Color.GRAY);
         btnPanel.add(btn3);
 
         //졸업생 버튼 설정
         btn4.setBounds(0, 170, 120, 30);
-        btn4.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
-        btn4.setBackground(Color.GRAY); // 배경색을 CYAN 색으로 변경
+        btn4.setOpaque(true);
+        btn4.setBackground(Color.GRAY);
         btnPanel.add(btn4);
 
-        //글쓰기 버튼 설정
         btn5.setBounds(30, 370, 120, 20);
-        btn5.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
-        btn5.setBackground(Color.WHITE); // 배경색을 CYAN 색으로 변경
+        btn5.setOpaque(true);
+        btn5.setBackground(Color.WHITE);
         homePanel.add(btn5);
 
-        //검색 버튼 설정
-        btn6.setBounds(30, 390, 120, 20);
-        btn6.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
-        btn6.setBackground(Color.WHITE); // 배경색을 CYAN 색으로 변경
-        homePanel.add(btn6);
 
-        //프레임 조정
-        homePanel.setOpaque(true); // 배경색이 보이록 불투명 속성 설정
-        homePanel.setBackground(Color.WHITE); // 배경색을 CYAN 색으로 변경
+        homePanel.setOpaque(true);
+        homePanel.setBackground(Color.WHITE);
 
-        //write 패널
         createPost_Panel = new JPanel();
         add(createPost_Panel);
         createPost_Panel.setLayout(null);
@@ -228,17 +211,15 @@ public class MainFrame extends JFrame{
                 lectureBtn[i].setVisible(false);
                 homePanel.remove(lectureBtn[i]);
             }
-            for(int i=0; i<arrayList.size(); i++)
-            {
+            for(int i=0; i<arrayList.size(); i++) {
                 mentoringBtn[i] = new JButton(arrayList.get(i).getTitle());
-                mentoringBtn[i].setBounds(150, 115+50*i, 250, 50);
+                mentoringBtn[i].setBounds(150, 115 + 50 * i, 250, 50);
                 homePanel.add(mentoringBtn[i]);
                 mentoringBtn[i].setVisible(true);
-
+                mentoringBtn[i].addActionListener(e1 -> {
+                    System.out.println("good");
+                });
             }
-
-
-
 
 
         });
@@ -278,6 +259,9 @@ public class MainFrame extends JFrame{
                 studyBtn[i].setBounds(150, 115+50*i, 250, 50);
                 homePanel.add(studyBtn[i]);
                 studyBtn[i].setVisible(true);
+                studyBtn[i].addActionListener(e1 -> {
+                    System.out.println("good");
+                });
             }
 
 
@@ -321,6 +305,9 @@ public class MainFrame extends JFrame{
                 lectureBtn[i].setBounds(150, 115+50*i, 250, 50);
                 homePanel.add(lectureBtn[i]);
                 lectureBtn[i].setVisible(true);
+                lectureBtn[i].addActionListener(e1 -> {
+                    System.out.println("good");
+                });
             }
 
 
@@ -329,7 +316,6 @@ public class MainFrame extends JFrame{
         btn5.addActionListener(e->{
             homePanel.setVisible(false);
             createPost_Panel.setVisible(true);
-            System.out.println(vo.getUser_Id());
         });
 
         createBtn.addActionListener(e->{
@@ -344,8 +330,19 @@ public class MainFrame extends JFrame{
         backBtn.addActionListener(e->{
             homePanel.setVisible(true);
             createPost_Panel.setVisible(false);
+            titleText.setText("");
+            contentsArea.setText("");
+            memberText.setText("");
         });
 
+
+    }
+    @Override
+    public void actionPerformed(ActionEvent e){
+            for(int i=0; i<10; i++){
+                mentoringBtn[i] = (JButton) e.getSource();
+            }
+            System.out.println("good");
     }
     public void create(UserVO vo) throws ParseException {
 

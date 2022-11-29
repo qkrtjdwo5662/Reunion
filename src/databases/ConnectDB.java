@@ -18,11 +18,6 @@ public class ConnectDB {
             Class.forName("com.mysql.jdbc.Driver");
             //driver loading
             connection = DriverManager.getConnection(url,id,password);
-            //db 연결
-            System.out.println("Connection Complete");
-
-
-
         }catch (ClassNotFoundException cnfe){
             System.out.println("DB 드라이버 로딩 실패 :" + cnfe.toString());
         }catch (SQLException sqle) {
