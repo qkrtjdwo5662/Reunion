@@ -67,7 +67,7 @@ public class PostDAO {
         }
         return arrayList;
     }
-    
+
 
     public void update(){
 

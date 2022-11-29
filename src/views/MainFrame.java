@@ -1,26 +1,20 @@
 package views;
 
-import com.sun.tools.javac.Main;
 import databases.PostDAO;
 import databases.PostVO;
 import databases.UserVO;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class MainFrame extends JFrame {
-    private JPanel homePanel,btnPanel;
+    private JPanel homePanel, menuPanel, postPanel;
     private ImageIcon icon;
-    private JLabel imageLabel,titleLabel,welcomeLabel,menuLabel,infoLabel;
-    private JButton btn1,btn2,btn3,btn4,btn5,btn6;
-    private String info;
+    private JLabel imageLabel,titleLabel,welcomeLabel,menuLabel,postTitleLabel,copyrightLabel;
+    private JButton menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn,btn5;
     //--------------------------------------------------------------------//
     public JPanel createPostPanel;
     private JTextField titleText, memberText;
@@ -46,80 +40,74 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);// window center
 
         homePanel = new JPanel();
-        btnPanel = new JPanel();
+        menuPanel = new JPanel();
+        postPanel = new JPanel();
         add(homePanel);
 
-        homePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         homePanel.setLayout(null);
-        btnPanel.setLayout(null);
+        menuPanel.setLayout(null);
+        postPanel.setLayout(null);
         Font font = new Font("Arial", Font.BOLD, 20);
 
         icon = new ImageIcon("image1/rogo.jpg"); // 이미지 로딩
         imageLabel = new JLabel(icon); // 이미지 레이블 만들기
+        imageLabel.setBounds(0,0,375,325);
+        postPanel.add(imageLabel);
 
-        imageLabel.setSize(icon.getIconHeight(),icon.getIconWidth());
-        imageLabel.setLocation(200,80);
-        homePanel.add(imageLabel);
-
-        titleLabel = new JLabel("Reunion");
-        titleLabel.setBounds(200, 10, 331, 50);
-        homePanel.add(titleLabel);
+        titleLabel = new JLabel("Reunion",JLabel.CENTER);
+        titleLabel.setBounds(100, 10, 300, 50);
         titleLabel.setFont(font);
+        homePanel.add(titleLabel);
 
-        welcomeLabel = new JLabel(userVO.getName()+"님 환영합니다");
-        welcomeLabel.setBounds(40,80,150,20);
+        welcomeLabel = new JLabel(userVO.getName()+"님 환영합니다",JLabel.CENTER);
+        welcomeLabel.setBounds(5,80,120,20);
         homePanel.add(welcomeLabel);
 
-        menuLabel = new JLabel("MENU");
-        menuLabel.setBounds(43, 10, 100, 20);
-        btnPanel.add(menuLabel);
+        copyrightLabel = new JLabel("@2022 Team Reunion All Rights Reserved",JLabel.CENTER);
+        copyrightLabel.setBounds(10,450,500,15);
+        homePanel.add(copyrightLabel);
 
-        infoLabel = new JLabel(info);
-        infoLabel.setBounds(280,100,150,20);
-        homePanel.add(infoLabel);
 
-        btn1 = new JButton("Mentoring");
-        btn2 = new JButton("Study");
-        btn3 = new JButton("스터디룸 예약");
-        btn4 = new JButton("Lecture");
+        menuLabel = new JLabel("MENU",JLabel.CENTER);
+        menuLabel.setBounds(0, 10, 120, 20);
+        menuPanel.add(menuLabel);
+
+        menuMentoringBtn = new JButton("Mentoring");
+        menuStudyBtn = new JButton("Study");
+        menuReserveBtn = new JButton("스터디룸 예약");
+        menuLectureBtn = new JButton("Lecture");
         btn5 = new JButton("글쓰기");
-        btn6 = new JButton("검색");
 
         //--------------------------------------------------------------------//
-        btnPanel.setBounds(30, 115, 120, 210);
-        btnPanel.setOpaque(true);
-        btnPanel.setBackground(Color.GRAY);
-        homePanel.add(btnPanel);
+        menuPanel.setBounds(5, 115, 120, 325);
+        menuPanel.setOpaque(true);
+        menuPanel.setBackground(new Color(165, 229, 252, 255));
+        homePanel.add(menuPanel);
 
+        menuMentoringBtn.setBounds(0, 50, 120, 30);
+        menuPanel.add(menuMentoringBtn);
 
-        btn1.setBounds(0, 50, 120, 30);
-        btn1.setOpaque(true);
-        btn1.setBackground(Color.GRAY);
-        btnPanel.add(btn1);
+        menuStudyBtn.setBounds(0, 90, 120, 30);
+        menuPanel.add(menuStudyBtn);
 
-        //스터디 버튼 설정
-        btn2.setBounds(0, 90, 120, 30);
-        btn2.setOpaque(true);
-        btn2.setBackground(Color.GRAY);
-        btnPanel.add(btn2);
+        menuLectureBtn.setBounds(0, 130, 120, 30);
+        menuPanel.add(menuLectureBtn);
 
-        //스터디룸 버튼 설정
-        btn3.setBounds(0, 130, 120, 30);
-        btn3.setOpaque(true);
-        btn3.setBackground(Color.GRAY);
-        btnPanel.add(btn3);
+        menuReserveBtn.setBounds(0, 250, 120, 30);
+        menuPanel.add(menuReserveBtn);
 
-        //졸업생 버튼 설정
-        btn4.setBounds(0, 170, 120, 30);
-        btn4.setOpaque(true);
-        btn4.setBackground(Color.GRAY);
-        btnPanel.add(btn4);
+        btn5.setBounds(0, 290, 120, 30);
+        menuPanel.add(btn5);
 
-        btn5.setBounds(30, 370, 120, 20);
-        btn5.setOpaque(true);
-        btn5.setBackground(Color.WHITE);
-        homePanel.add(btn5);
+        postPanel.setBounds(125,115,375,325);
+        postPanel.setOpaque(true);
+        postPanel.setBackground(new Color(255, 255, 255, 255));
+        homePanel.add(postPanel);
 
+        postTitleLabel = new JLabel("제목",JLabel.CENTER);
+        postTitleLabel.setBounds(0, 10, 375, 20);
+        postPanel.add(postTitleLabel);
+        postTitleLabel.setVisible(false);
 
         homePanel.setOpaque(true);
         homePanel.setBackground(Color.WHITE);
@@ -191,20 +179,19 @@ public class MainFrame extends JFrame {
             homePanel.add(lectureBtn[i]);
 
         }
-        btn1.addActionListener(e -> {
-            btn1.setEnabled(false);
-            btn2.setEnabled(true);
-            btn4.setEnabled(true);
+        menuMentoringBtn.addActionListener(e -> {
+            menuMentoringBtn.setEnabled(false);
+            menuStudyBtn.setEnabled(true);
+            menuLectureBtn.setEnabled(true);
             //true -> false
             imageLabel.setVisible(false);
             //false -> true
 
             //modify text
             titleLabel.setText("Mentoring");
-            infoLabel.setText(btn1.getText());
             postDAO = new PostDAO();
             arrayList =new ArrayList<PostVO>();
-            arrayList = postDAO.read(btn1.getText());
+            arrayList = postDAO.read(menuMentoringBtn.getText());
 
             for(int i=0; i<studyBtn.length; i++)
             {
@@ -219,7 +206,7 @@ public class MainFrame extends JFrame {
             }
             for(int i=0; i<arrayList.size(); i++) {
                 mentoringBtn[i] = new JButton(arrayList.get(i).getTitle());
-                mentoringBtn[i].setBounds(150, 115 + 50 * i, 250, 50);
+                mentoringBtn[i].setBounds(140, 115 + 50 * i, 330, 50);
                 homePanel.add(mentoringBtn[i]);
                 mentoringBtn[i].setVisible(true);
                 int finalI = i;
@@ -231,20 +218,19 @@ public class MainFrame extends JFrame {
 
 
         });
-        btn2.addActionListener(e->{
-            btn1.setEnabled(true);
-            btn2.setEnabled(false);
-            btn4.setEnabled(true);
+        menuStudyBtn.addActionListener(e->{
+            menuMentoringBtn.setEnabled(true);
+            menuStudyBtn.setEnabled(false);
+            menuLectureBtn.setEnabled(true);
             //true -> false
             imageLabel.setVisible(false);
             //false -> true
 
             //modify text
             titleLabel.setText("Study");
-            infoLabel.setText(btn2.getText());
             postDAO = new PostDAO();
             arrayList =new ArrayList<PostVO>();
-            arrayList = postDAO.read(btn2.getText());
+            arrayList = postDAO.read(menuStudyBtn.getText());
 
 
 
@@ -264,7 +250,7 @@ public class MainFrame extends JFrame {
             for(int i=0; i<arrayList.size(); i++)
             {
                 studyBtn[i] = new JButton(arrayList.get(i).getTitle());
-                studyBtn[i].setBounds(150, 115+50*i, 250, 50);
+                studyBtn[i].setBounds(150, 115+50*i, 350, 50);
                 homePanel.add(studyBtn[i]);
                 studyBtn[i].setVisible(true);
                 int finalI = i;
@@ -277,23 +263,22 @@ public class MainFrame extends JFrame {
 
 
         });
-        btn3.addActionListener(e->{
+        menuReserveBtn.addActionListener(e->{
 
         });
-        btn4.addActionListener(e->{
-            btn1.setEnabled(true);
-            btn2.setEnabled(true);
-            btn4.setEnabled(false);
+        menuLectureBtn.addActionListener(e->{
+            menuMentoringBtn.setEnabled(true);
+            menuStudyBtn.setEnabled(true);
+            menuLectureBtn.setEnabled(false);
             //true -> false
             imageLabel.setVisible(false);
             //false -> true
 
             //modify text
             titleLabel.setText("Lecture");
-            infoLabel.setText(btn4.getText());
             postDAO = new PostDAO();
             arrayList =new ArrayList<PostVO>();
-            arrayList = postDAO.read(btn4.getText());
+            arrayList = postDAO.read(menuLectureBtn.getText());
 
 
             for(int i=0; i<mentoringBtn.length; i++)
@@ -312,7 +297,7 @@ public class MainFrame extends JFrame {
             for(int i=0; i<arrayList.size(); i++)
             {
                 lectureBtn[i] = new JButton(arrayList.get(i).getTitle());
-                lectureBtn[i].setBounds(150, 115+50*i, 250, 50);
+                lectureBtn[i].setBounds(150, 115+50*i, 350, 50);
                 homePanel.add(lectureBtn[i]);
                 lectureBtn[i].setVisible(true);
                 int finalI = i;
@@ -369,6 +354,7 @@ public class MainFrame extends JFrame {
             JOptionPane.showMessageDialog(null,"글생성실패");
         }
     }
+
     public static void main(String[] args) {
         UserVO vo = new UserVO();
         MainFrame mainFrame = new MainFrame(vo);
