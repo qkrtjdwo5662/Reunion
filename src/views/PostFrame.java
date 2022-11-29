@@ -11,10 +11,12 @@ public class PostFrame extends JFrame {
     private JLabel postTitleLabel, postWriterLabel1, postWriterLabel2, postFixedNumberLabel1, postFixedNumberLabel2, postContentLabel;
 
     public PostFrame(UserVO userVO){
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
 
-        postPanel = new JPanel();
+        setSize(500,500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        postPanel = new postPanel();
         add(postPanel);
         postPanel.setLayout(null);
 
@@ -63,8 +65,9 @@ public class PostFrame extends JFrame {
         postPanel.add(postApplyBtn);
 
         postPanel.setBackground(Color.white);
-        this.setSize(500,500);
-        this.setVisible(true);
+
+        setVisible(true);
+        setResizable(false);
 
         postBackBtn.addActionListener(e->{
             MainFrame mf = new MainFrame(userVO);

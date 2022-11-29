@@ -41,6 +41,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame(UserVO userVO) {
 
+        setSize(500,500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);// window center
 
@@ -174,7 +175,7 @@ public class MainFrame extends JFrame {
         //--------------------------------------------------------------------//
 
 
-        setSize(500,500);
+
         setVisible(true);
         setResizable(false);
 

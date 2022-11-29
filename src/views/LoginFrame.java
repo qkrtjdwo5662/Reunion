@@ -17,8 +17,10 @@ public class LoginFrame extends JFrame {
 
     UserVO userVO;
     public LoginFrame() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 500);
         setLocationRelativeTo(null);// window center
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         //login 패널
         loginPanel = new JPanel();
@@ -95,7 +97,7 @@ public class LoginFrame extends JFrame {
         registerBtn.setBounds(255, 370, 100, 30);
         joinPanel.add(registerBtn);
 
-        setSize(500, 500);
+
         setVisible(true);
         setResizable(false);
 
