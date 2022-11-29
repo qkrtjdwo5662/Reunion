@@ -77,7 +77,7 @@ public class UserDAO {
         return queryCheck;
     }
     public UserVO userData(String uid, String password){
-        UserVO vo= new UserVO();
+        UserVO userVO= new UserVO();
         try {
 
             String sql = "SELECT user_Id, password, name FROM user WHERE user_Id = ? and password=?";
@@ -90,16 +90,16 @@ public class UserDAO {
             rs = ps.executeQuery();
             rs.next();
 
-            vo.setUser_Id(rs.getString(1));
-            vo.setPassword(rs.getString(2));
-            vo.setName(rs.getString(3));
+            userVO.setUser_Id(rs.getString(1));
+            userVO.setPassword(rs.getString(2));
+            userVO.setName(rs.getString(3));
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
             databasesClose();
         }
 
-        return vo;
+        return userVO;
     }
     public void update() {
 

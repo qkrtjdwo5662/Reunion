@@ -222,9 +222,10 @@ public class MainFrame extends JFrame {
                 mentoringBtn[i].setBounds(150, 115 + 50 * i, 250, 50);
                 homePanel.add(mentoringBtn[i]);
                 mentoringBtn[i].setVisible(true);
+                int finalI = i;
                 mentoringBtn[i].addActionListener(e1 -> {
                     setVisible(false);
-                    PostFrame pf = new PostFrame(userVO);
+                    new PostFrame(userVO,arrayList.get(finalI));
                 });
             }
 
@@ -266,8 +267,10 @@ public class MainFrame extends JFrame {
                 studyBtn[i].setBounds(150, 115+50*i, 250, 50);
                 homePanel.add(studyBtn[i]);
                 studyBtn[i].setVisible(true);
+                int finalI = i;
                 studyBtn[i].addActionListener(e1 -> {
                     setVisible(false);
+                    new PostFrame(userVO,arrayList.get(finalI));
                 });
             }
 
@@ -312,8 +315,11 @@ public class MainFrame extends JFrame {
                 lectureBtn[i].setBounds(150, 115+50*i, 250, 50);
                 homePanel.add(lectureBtn[i]);
                 lectureBtn[i].setVisible(true);
+                int finalI = i;
                 lectureBtn[i].addActionListener(e1 -> {
+
                     setVisible(false);
+                    new PostFrame(userVO,arrayList.get(finalI));
                 });
             }
 

@@ -1,7 +1,9 @@
 package views;
+import databases.PostVO;
 import databases.UserVO;
 
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -10,7 +12,7 @@ public class PostFrame extends JFrame {
     private JButton postApplyBtn, postBackBtn;
     private JLabel postTitleLabel, postWriterLabel1, postWriterLabel2, postFixedNumberLabel1, postFixedNumberLabel2, postContentLabel;
 
-    public PostFrame(UserVO userVO){
+    public PostFrame(UserVO userVO, PostVO postVO){
 
         setSize(500,500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,8 +22,8 @@ public class PostFrame extends JFrame {
         add(postPanel);
         postPanel.setLayout(null);
 
-        postTitleLabel =new JLabel("**Title**",JLabel.CENTER);
-        postTitleLabel.setBounds(150,50,200,60);
+        postTitleLabel =new JLabel(postVO.getTitle(),JLabel.CENTER);
+        postTitleLabel.setBounds(100,50,300,60);
         postTitleLabel.setFont(new Font("Selif",Font.BOLD,30));
         postPanel.add(postTitleLabel);
         
@@ -31,7 +33,7 @@ public class PostFrame extends JFrame {
         postWriterLabel1.setForeground(Color.GRAY);
         postPanel.add(postWriterLabel1);
 
-        postWriterLabel2 = new JLabel("qkrtjdwo5662");
+        postWriterLabel2 = new JLabel(postVO.getUser_Id());
         postWriterLabel2.setBounds(150,100,100,40);
         postWriterLabel2.setFont(new Font("Selif",Font.PLAIN,11));
         postWriterLabel2.setForeground(Color.GRAY);
@@ -88,7 +90,8 @@ public class PostFrame extends JFrame {
 
     public static void main(String[] args) {
         UserVO userVO = new UserVO();
-        PostFrame tf = new PostFrame(userVO);
+        PostVO postVO = new PostVO();
+        PostFrame tf = new PostFrame(userVO,postVO);
 
     }
 
