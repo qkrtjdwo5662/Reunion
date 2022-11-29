@@ -34,7 +34,9 @@ public class MainFrame extends JFrame{
     PostVO postVO;
     PostDAO postDAO;
     ArrayList<PostVO> arrayList;
-    JButton[] btn = new JButton[10];
+    JButton[] mentoringBtn = new JButton[10];
+    JButton[] studyBtn = new JButton[10];
+    JButton[] lectureBtn = new JButton[10];
 
     private JButton study;
     public MainFrame(UserVO vo) {
@@ -191,7 +193,15 @@ public class MainFrame extends JFrame{
         add(homePanel);
         createPost_Panel.setVisible(false);
 
+        for(int i=0; i<10; i++){
+            mentoringBtn[i] = new JButton();
+            studyBtn[i] = new JButton();
+            lectureBtn[i] = new JButton();
+            homePanel.add(mentoringBtn[i]);
+            homePanel.add(studyBtn[i]);
+            homePanel.add(lectureBtn[i]);
 
+        }
         btn1.addActionListener(e -> {
             //true -> false
             imageLabel.setVisible(false);
@@ -203,16 +213,32 @@ public class MainFrame extends JFrame{
             postDAO = new PostDAO();
             arrayList =new ArrayList<PostVO>();
             arrayList = postDAO.read(btn1.getText());
-            System.out.println(arrayList.size());
-
 
             for(int i=0; i<arrayList.size(); i++)
             {
-                btn[i] = new JButton(arrayList.get(i).getTitle());
-                btn[i].setBounds(150, 115+50*i, 250, 50);;
-                homePanel.add(btn[i]);
+                mentoringBtn[i] = new JButton(arrayList.get(i).getTitle());
+                mentoringBtn[i].setBounds(150, 115+50*i, 250, 50);
+                homePanel.add(mentoringBtn[i]);
+                mentoringBtn[i].setVisible(true);
+
             }
-            System.out.println(arrayList.size());
+            for(int i=0; i<studyBtn.length; i++)
+            {
+
+                homePanel.remove(studyBtn[i]);
+                studyBtn[i].setVisible(false);
+            }
+
+            for(int i=0; i<lectureBtn.length; i++)
+            {
+
+                homePanel.remove(lectureBtn[i]);
+                lectureBtn[i].setVisible(false);
+
+            }
+
+
+
 
         });
         btn2.addActionListener(e->{
@@ -226,15 +252,27 @@ public class MainFrame extends JFrame{
             postDAO = new PostDAO();
             arrayList =new ArrayList<PostVO>();
             arrayList = postDAO.read(btn2.getText());
-            System.out.println(arrayList.size());
+
 
             for(int i=0; i<arrayList.size(); i++)
             {
-                btn[i] = new JButton(arrayList.get(i).getTitle());
-                btn[i].setBounds(150, 115+50*i, 250, 50);;
-                homePanel.add(btn[i]);
+                studyBtn[i] = new JButton(arrayList.get(i).getTitle());
+                studyBtn[i].setBounds(150, 115+50*i, 250, 50);
+                homePanel.add(studyBtn[i]);
+                studyBtn[i].setVisible(true);
             }
-            System.out.println(arrayList.size());
+            for(int i=0; i<mentoringBtn.length; i++)
+            {
+                homePanel.remove(mentoringBtn[i]);
+                mentoringBtn[i].setVisible(false);
+            }
+
+            for(int i=0; i<lectureBtn.length; i++)
+            {
+                homePanel.remove(lectureBtn[i]);
+                lectureBtn[i].setVisible(false);
+            }
+
 
 
         });
@@ -255,15 +293,26 @@ public class MainFrame extends JFrame{
 
             for(int i=0; i<arrayList.size(); i++)
             {
-                btn[i] = new JButton(arrayList.get(i).getTitle());
-                btn[i].setBounds(150, 115+50*i, 250, 50);;
-                homePanel.add(btn[i]);
+                lectureBtn[i] = new JButton(arrayList.get(i).getTitle());
+                lectureBtn[i].setBounds(150, 115+50*i, 250, 50);
+                homePanel.add(lectureBtn[i]);
+                lectureBtn[i].setVisible(true);
             }
-            for(int i=0; i<btn.length; i++)
+            for(int i=0; i<mentoringBtn.length; i++)
             {
-                btn[i].removeAll();
+
+                homePanel.remove(mentoringBtn[i]);
+                mentoringBtn[i].setVisible(false);
             }
-            System.out.println(arrayList.size());
+
+            for(int i=0; i<studyBtn.length; i++)
+            {
+               homePanel.remove(studyBtn[i]);
+               studyBtn[i].setVisible(false);
+            }
+
+
+
         });
         btn5.addActionListener(e->{
             homePanel.setVisible(false);
