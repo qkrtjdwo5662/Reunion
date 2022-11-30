@@ -1,35 +1,55 @@
 package views;
 
-import javax.sound.sampled.*;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.util.ArrayList;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import databases.PostDAO;
 import databases.PostVO;
 import databases.UserVO;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-
-import javax.swing.*;
-
 public class MainFrame extends JFrame {
 	private Clip clip;
 	private String song ="sound/MP_Tiny-Button-Push.wav";
-    private JPanel homePanel, menuPanel, postPanel;
-    private ImageIcon icon;
-    private JLabel imageLabel,titleLabel,welcomeLabel,menuLabel,postTitleLabel,copyrightLabel;
-    private JButton menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
-    //--------------------------------------------------------------------//
-    public JPanel createPostPanel;
-    private JTextField titleText, memberText;
-    private JButton createBtn, backBtn;
-    private JTextArea contentsArea;
-    private JLabel categoryLabel, nameLabel, contentsLabel,memberLabel;
+	 private JPanel homePanel, menuPanel, postPanel;
+	    private ImageIcon icon, iconCoin, iconRoom1,iconRoom2,iconRoom3,iconRoom4;
+	    private JLabel coinLabel,imageLabel,imageLabel_coin,titleLabel,welcomeLabel,menuLabel,postTitleLabel,copyrightLabel;
+	    private JButton imageBtn1,imageBtn2,imageBtn3,imageBtn4,menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
+	    //--------------------------------------------------------------------//
+	    public JPanel createPostPanel;
+	    private JTextField titleText, memberText;
+	    private JButton createBtn, backBtn;
+	    private JTextArea contentsArea;
+	    private JLabel room1Label,room2Label,room3Label,room4Label,categoryLabel, nameLabel, contentsLabel,memberLabel;
     //--------------------------------------------------------------------//
     String selectArray[] = {"Mentoring","Study","Lecture"};
     JComboBox<String> selectBox;
     String select;
+    String seminar = "https://dorm.hansung.ac.kr/kor/dormitory/seminarroom.do";
+    String group = "https://www.hansung.ac.kr/onestop/8952/subview.do";
+    String study = "https://www.hansung.ac.kr/cncschool/7312/subview.do"; 
+    String library = "https://hsel.hansung.ac.kr/guide_group_study.mir";
 
     PostVO postVO;
     PostDAO postDAO;
@@ -58,14 +78,34 @@ public class MainFrame extends JFrame {
         imageLabel = new JLabel(icon); // 이미지 레이블 만들기
         imageLabel.setBounds(0,0,375,325);
         postPanel.add(imageLabel);
+        
+        iconCoin = new ImageIcon("image1/coin.jpg"); // 이미지 로딩
+        imageLabel_coin = new JLabel(iconCoin); // 이미지 레이블 만들기
+        imageLabel_coin.setSize(iconCoin.getIconHeight(),iconCoin.getIconWidth());
+        imageLabel_coin.setLocation(15,80);
+        homePanel.add(imageLabel_coin);
 
+        //coinLabel
+        coinLabel = new JLabel("820");
+        coinLabel.setBounds(38,80,150,20);
+        homePanel.add(coinLabel);
+ 
+        //roomLabel
+        room1Label = new JLabel ("상빌 B1층 세미나실");
+        homePanel.add(room1Label);
+        room2Label = new JLabel ("상상관 B2층 상상베이스");
+        homePanel.add(room2Label);
+        room3Label = new JLabel ("상상플러스 스터디룸");
+        homePanel.add(room3Label);
+        room4Label = new JLabel ("학술정보관 그룹스터디실");
+        homePanel.add(room4Label);
         titleLabel = new JLabel("Reunion",JLabel.CENTER);
         titleLabel.setBounds(100, 10, 300, 50);
         titleLabel.setFont(font);
         homePanel.add(titleLabel);
 
         welcomeLabel = new JLabel(userVO.getName()+"님 환영합니다",JLabel.CENTER);
-        welcomeLabel.setBounds(5,80,120,20);
+        welcomeLabel.setBounds(5,60,120,20);
         homePanel.add(welcomeLabel);
 
         copyrightLabel = new JLabel("@2022 Team Reunion All Rights Reserved",JLabel.CENTER);
@@ -83,6 +123,19 @@ public class MainFrame extends JFrame {
         menuLectureBtn = new JButton("Lecture");
         writeBtn = new JButton("글쓰기");
 
+        //image
+        iconRoom1 = new ImageIcon("image1/room1.jpg"); // 이미지 로딩      
+        imageBtn1 = new JButton(iconRoom1); // 이미지 레이블 만들기
+        homePanel.add(imageBtn1);
+        iconRoom2 = new ImageIcon("image1/room2.jpg"); // 이미지 로딩      
+        imageBtn2 = new JButton(iconRoom2); // 이미지 레이블 만들기
+        homePanel.add(imageBtn2);
+        iconRoom3 = new ImageIcon("image1/room3.jpg"); // 이미지 로딩      
+        imageBtn3 = new JButton(iconRoom3); // 이미지 레이블 만들기
+        homePanel.add(imageBtn3);
+        iconRoom4 = new ImageIcon("image1/room4.jpg"); // 이미지 로딩      
+        imageBtn4 = new JButton(iconRoom4); // 이미지 레이블 만들기
+        homePanel.add(imageBtn4);
         //--------------------------------------------------------------------//
         menuPanel.setBounds(5, 115, 120, 325);
         menuPanel.setOpaque(true);
@@ -194,6 +247,14 @@ public class MainFrame extends JFrame {
             menuLectureBtn.setEnabled(true);
             //true -> false
             imageLabel.setVisible(false);
+            imageBtn1.setVisible(false);
+            imageBtn2.setVisible(false);
+            imageBtn3.setVisible(false);
+            imageBtn4.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
+            room4Label.setVisible(false);
             //false -> true
 
             //modify text
@@ -237,6 +298,14 @@ public class MainFrame extends JFrame {
             menuLectureBtn.setEnabled(true);
             //true -> false
             imageLabel.setVisible(false);
+            imageBtn1.setVisible(false);
+            imageBtn2.setVisible(false);
+            imageBtn3.setVisible(false);
+            imageBtn4.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
+            room4Label.setVisible(false);
             //false -> true
 
             //modify text
@@ -286,6 +355,14 @@ public class MainFrame extends JFrame {
             menuLectureBtn.setEnabled(false);
             //true -> false
             imageLabel.setVisible(false);
+            imageBtn1.setVisible(false);
+            imageBtn2.setVisible(false);
+            imageBtn3.setVisible(false);
+            imageBtn4.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
+            room4Label.setVisible(false);
             //false -> true
 
             //modify text
@@ -330,8 +407,72 @@ public class MainFrame extends JFrame {
         menuReserveBtn.addActionListener(e->{
         	clip.setFramePosition(0);
             clip.start();
-
-        });
+            
+            imageLabel.setVisible(false);
+            imageBtn1.setVisible(true);
+            imageBtn2.setVisible(true);
+            imageBtn3.setVisible(true);
+            imageBtn4.setVisible(true);
+            room1Label.setVisible(true);
+            room2Label.setVisible(true);
+            room3Label.setVisible(true);
+            room4Label.setVisible(true);
+            
+             imageBtn1.setSize(130,130);
+             imageBtn1.setLocation(160,115);
+             //homePanel.add(imageBtn1);
+             room1Label.setBounds(170, 240, 200, 50);
+             //homePanel.add(room1Label);
+             
+             imageBtn2.setSize(130,130);
+             imageBtn2.setLocation(330,115);
+             //homePanel.add(imageBtn2);
+             room2Label.setBounds(325, 240, 200, 50);
+             //homePanel.add(room2Label);
+             
+             imageBtn3.setSize(130,130);
+             imageBtn3.setLocation(160,290);
+             //homePanel.add(imageBtn3);
+             room3Label.setBounds(170, 410, 200, 50);
+             //homePanel.add(room3Label);
+             
+             imageBtn4.setSize(130,130);
+             imageBtn4.setLocation(330,290);
+             //homePanel.add(imageBtn4);
+             room4Label.setBounds(325, 410, 200, 50);
+             //homePanel.add(room4Label);
+             
+         });
+         imageBtn1.addActionListener(e->{
+             try {
+             Desktop.getDesktop().browse(new URI(seminar));
+          } catch (IOException | URISyntaxException e1) {
+             e1.printStackTrace();
+          }
+          });
+          
+          imageBtn2.addActionListener(e->{
+             try {
+             Desktop.getDesktop().browse(new URI(group));
+          } catch (IOException | URISyntaxException e1) {
+             e1.printStackTrace();
+          }
+          });
+          
+          imageBtn3.addActionListener(e->{
+             try {
+             Desktop.getDesktop().browse(new URI(study));
+          } catch (IOException | URISyntaxException e1) {
+             e1.printStackTrace();
+          }
+          });
+          imageBtn4.addActionListener(e->{
+              try {
+              Desktop.getDesktop().browse(new URI(library));
+           } catch (IOException | URISyntaxException e1) {
+              e1.printStackTrace();
+           }
+           });
         writeBtn.addActionListener(e->{
         	clip.setFramePosition(0);
             clip.start();
