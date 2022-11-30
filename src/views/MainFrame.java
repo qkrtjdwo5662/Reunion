@@ -108,10 +108,14 @@ public class MainFrame extends JFrame {
         welcomeLabel.setBounds(5,60,120,20);
         homePanel.add(welcomeLabel);
 
-        copyrightLabel = new JLabel("@2022 Team Reunion All Rights Reserved",JLabel.CENTER);
-        copyrightLabel.setBounds(10,450,500,15);
+
+
+        copyrightLabel = new JLabel("@2022 Team Reunion All Rights Reserved");
+        copyrightLabel.setBounds(0,450,500,15);
         homePanel.add(copyrightLabel);
 
+        LabelThread lt = new LabelThread();
+        lt.start();
 
         menuLabel = new JLabel("MENU",JLabel.CENTER);
         menuLabel.setBounds(0, 10, 120, 20);
@@ -535,7 +539,29 @@ public class MainFrame extends JFrame {
           catch (IOException e) { e.printStackTrace(); }
 
         }
-
+    class LabelThread extends Thread {
+        @Override
+        public void run() {
+            int idx = 0;
+            int pos = 5;
+            while (true) {
+                idx = idx + 1;
+                try {
+                    Thread.sleep(100);
+                    int x = copyrightLabel.getX();
+                    int y = copyrightLabel.getY();
+                    if (x < 10) {
+                        pos = 5;
+                    } else if (x > 500) {
+                        x = 0;
+                    }
+                    copyrightLabel.setLocation(x + pos, y);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     public static void main(String[] args) {
         UserVO vo = new UserVO();
         MainFrame mainFrame = new MainFrame(vo);
