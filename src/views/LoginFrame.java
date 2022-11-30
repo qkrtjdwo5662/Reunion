@@ -3,10 +3,16 @@ package views;
 import databases.UserDAO;
 import databases.UserVO;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class LoginFrame extends JFrame {
+	private Clip clip;
+	private String song ="sound/MP_Tiny-Button-Push.wav";
     private JPanel loginPanel;
     private JTextField id_LoginText, pw_LoginText;
     private JButton loginBtn, joinBtn;
@@ -99,24 +105,37 @@ public class LoginFrame extends JFrame {
 
 
         setVisible(true);
+        loadAudio(song);
         setResizable(false);
 
         add(loginPanel);
         joinPanel.setVisible(false);
 
         loginBtn.addActionListener(e-> {
+        	clip.setFramePosition(0);
+            clip.start();
                 login();
         });
         joinBtn.addActionListener(e -> {
+        	clip.setFramePosition(0);
+            clip.start();
             loginPanel.setVisible(false);
             joinPanel.setVisible(true);
         });
         //회원가입 액션
         backBtn.addActionListener(e ->{
+        	clip.setFramePosition(0);
+            clip.start();
             loginPanel.setVisible(true);
             joinPanel.setVisible(false);
         });
-        registerBtn.addActionListener(e -> register());
+        
+        registerBtn.addActionListener(e -> {
+        	clip.setFramePosition(0);
+            clip.start();
+            register();
+        });
+       //registerBtn.addActionListener(e -> register());
 
 
     }
@@ -161,6 +180,19 @@ public class LoginFrame extends JFrame {
         }
 
     }
+
+    private void loadAudio(String pathName) {
+        try {
+            clip = AudioSystem.getClip(); // 비어있는 오디오 클립 만들기
+              File audioFile = new File(pathName); // 오디오 파일의 경로명
+              AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // 오디오 파일로부터
+              clip.open(audioStream); // 재생할 오디오 스트림 열기
+          }
+          catch (LineUnavailableException e) { e.printStackTrace(); }
+          catch (UnsupportedAudioFileException e) { e.printStackTrace(); }
+          catch (IOException e) { e.printStackTrace(); }
+
+        }
 
 
     public static void main(String[] args) {

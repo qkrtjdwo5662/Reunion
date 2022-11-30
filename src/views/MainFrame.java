@@ -1,16 +1,21 @@
 package views;
 
+import javax.sound.sampled.*;
 import databases.PostDAO;
 import databases.PostVO;
 import databases.UserVO;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
+	private Clip clip;
+	private String song ="sound/MP_Tiny-Button-Push.wav";
     private JPanel homePanel, menuPanel, postPanel;
     private ImageIcon icon;
     private JLabel imageLabel,titleLabel,welcomeLabel,menuLabel,postTitleLabel,copyrightLabel;
@@ -143,6 +148,7 @@ public class MainFrame extends JFrame {
         titleText.setColumns(25);
         
         contentsArea = new JTextArea("",10,10);
+        contentsArea.setLineWrap(true);//글쓰기 자동 줄 바꿈
         createPostPanel.add(contentsArea);
         contentsArea.setBounds(45, 170, 240, 120);
         contentsArea.setColumns(25);
@@ -153,11 +159,11 @@ public class MainFrame extends JFrame {
         memberText.setColumns(25);
 
         createBtn = new JButton("만들기");
-        createBtn.setBounds(150, 400, 100, 30);
+        createBtn.setBounds(140, 400, 100, 30);
         createPostPanel.add(createBtn);
 
         backBtn = new JButton("뒤로가기");
-        backBtn.setBounds(250, 400, 100, 30);
+        backBtn.setBounds(260, 400, 100, 30);
         createPostPanel.add(backBtn);
 
         //--------------------------------------------------------------------//
@@ -165,6 +171,7 @@ public class MainFrame extends JFrame {
 
 
         setVisible(true);
+        loadAudio(song);
         setResizable(false);
 
         add(homePanel);
@@ -180,6 +187,8 @@ public class MainFrame extends JFrame {
 
         }
         menuMentoringBtn.addActionListener(e -> {
+        	clip.setFramePosition(0);
+            clip.start();
             menuMentoringBtn.setEnabled(false);
             menuStudyBtn.setEnabled(true);
             menuLectureBtn.setEnabled(true);
@@ -211,6 +220,8 @@ public class MainFrame extends JFrame {
                 mentoringBtn[i].setVisible(true);
                 int finalI = i;
                 mentoringBtn[i].addActionListener(e1 -> {
+                	clip.setFramePosition(0);
+                    clip.start();
                     setVisible(false);
                     new PostFrame(userVO,arrayList.get(finalI));
                 });
@@ -219,6 +230,8 @@ public class MainFrame extends JFrame {
 
         });
         menuStudyBtn.addActionListener(e->{
+        	clip.setFramePosition(0);
+            clip.start();
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(false);
             menuLectureBtn.setEnabled(true);
@@ -255,6 +268,8 @@ public class MainFrame extends JFrame {
                 studyBtn[i].setVisible(true);
                 int finalI = i;
                 studyBtn[i].addActionListener(e1 -> {
+                	clip.setFramePosition(0);
+                    clip.start();
                     setVisible(false);
                     new PostFrame(userVO,arrayList.get(finalI));
                 });
@@ -264,6 +279,8 @@ public class MainFrame extends JFrame {
 
         });
         menuLectureBtn.addActionListener(e->{
+        	clip.setFramePosition(0);
+            clip.start();
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(true);
             menuLectureBtn.setEnabled(false);
@@ -299,6 +316,8 @@ public class MainFrame extends JFrame {
                 lectureBtn[i].setVisible(true);
                 int finalI = i;
                 lectureBtn[i].addActionListener(e1 -> {
+                	clip.setFramePosition(0);
+                    clip.start();
 
                     setVisible(false);
                     new PostFrame(userVO,arrayList.get(finalI));
@@ -309,14 +328,20 @@ public class MainFrame extends JFrame {
 
         });
         menuReserveBtn.addActionListener(e->{
+        	clip.setFramePosition(0);
+            clip.start();
 
         });
         writeBtn.addActionListener(e->{
+        	clip.setFramePosition(0);
+            clip.start();
             homePanel.setVisible(false);
             createPostPanel.setVisible(true);
         });
 
         createBtn.addActionListener(e->{
+        	clip.setFramePosition(0);
+            clip.start();
             select = selectBox.getSelectedItem().toString();
             System.out.println(select);
             try {
@@ -326,6 +351,8 @@ public class MainFrame extends JFrame {
             }
         });
         backBtn.addActionListener(e->{
+        	clip.setFramePosition(0);
+            clip.start();
             homePanel.setVisible(true);
             createPostPanel.setVisible(false);
             titleText.setText("");
@@ -354,6 +381,19 @@ public class MainFrame extends JFrame {
             JOptionPane.showMessageDialog(null,"글생성실패");
         }
     }
+    
+    private void loadAudio(String pathName) {
+        try {
+            clip = AudioSystem.getClip(); // 비어있는 오디오 클립 만들기
+              File audioFile = new File(pathName); // 오디오 파일의 경로명
+              AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // 오디오 파일로부터
+              clip.open(audioStream); // 재생할 오디오 스트림 열기
+          }
+          catch (LineUnavailableException e) { e.printStackTrace(); }
+          catch (UnsupportedAudioFileException e) { e.printStackTrace(); }
+          catch (IOException e) { e.printStackTrace(); }
+
+        }
 
     public static void main(String[] args) {
         UserVO vo = new UserVO();

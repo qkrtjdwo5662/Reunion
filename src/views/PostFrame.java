@@ -2,12 +2,17 @@ package views;
 import databases.PostVO;
 import databases.UserVO;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class PostFrame extends JFrame {
+	private Clip clip;
+	private String song ="sound/MP_Tiny-Button-Push.wav";
     public JPanel postPanel;
     private JButton postApplyBtn, postBackBtn;
     private JLabel postTitleLabel, postWriterLabel1, postWriterLabel2, postFixedNumberLabel1, postFixedNumberLabel2, postContentLabel;
@@ -57,24 +62,33 @@ public class PostFrame extends JFrame {
         postPanel.add(postContentLabel);
 
         postBackBtn = new JButton("뒤로가기");
-        postBackBtn.setBounds(250, 400, 100, 30);
+        postBackBtn.setBounds(260, 400, 100, 30);
         postBackBtn.setBackground(Color.white);
         postPanel.add(postBackBtn);
 
         postApplyBtn = new JButton("신청하기");
-        postApplyBtn.setBounds(150, 400, 100, 30);
+        postApplyBtn.setBounds(140, 400, 100, 30);
         postApplyBtn.setBackground(Color.orange);
         postPanel.add(postApplyBtn);
 
         postPanel.setBackground(Color.white);
 
         setVisible(true);
+        loadAudio(song);
         setResizable(false);
 
+        postApplyBtn.addActionListener(e->{
+        	clip.setFramePosition(0);
+            clip.start();
+            
+        });
         postBackBtn.addActionListener(e->{
+        	clip.setFramePosition(0);
+            clip.start();
             MainFrame mf = new MainFrame(userVO);
             setVisible(false);
         });
+        
     }
     class postPanel extends JPanel{
         public void paintComponent(Graphics g){
@@ -87,6 +101,19 @@ public class PostFrame extends JFrame {
 
         }
     }
+    
+    private void loadAudio(String pathName) {
+        try {
+            clip = AudioSystem.getClip(); // 비어있는 오디오 클립 만들기
+              File audioFile = new File(pathName); // 오디오 파일의 경로명
+              AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // 오디오 파일로부터
+              clip.open(audioStream); // 재생할 오디오 스트림 열기
+          }
+          catch (LineUnavailableException e) { e.printStackTrace(); }
+          catch (UnsupportedAudioFileException e) { e.printStackTrace(); }
+          catch (IOException e) { e.printStackTrace(); }
+
+        }
 
     public static void main(String[] args) {
         UserVO userVO = new UserVO();
