@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
     private JPanel homePanel, menuPanel, postPanel;
     private ImageIcon icon;
     private JLabel imageLabel,titleLabel,welcomeLabel,menuLabel,postTitleLabel,copyrightLabel;
-    private JButton menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn,btn5;
+    private JButton menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
     //--------------------------------------------------------------------//
     public JPanel createPostPanel;
     private JTextField titleText, memberText;
@@ -76,7 +76,7 @@ public class MainFrame extends JFrame {
         menuStudyBtn = new JButton("Study");
         menuReserveBtn = new JButton("스터디룸 예약");
         menuLectureBtn = new JButton("Lecture");
-        btn5 = new JButton("글쓰기");
+        writeBtn = new JButton("글쓰기");
 
         //--------------------------------------------------------------------//
         menuPanel.setBounds(5, 115, 120, 325);
@@ -96,8 +96,8 @@ public class MainFrame extends JFrame {
         menuReserveBtn.setBounds(0, 250, 120, 30);
         menuPanel.add(menuReserveBtn);
 
-        btn5.setBounds(0, 290, 120, 30);
-        menuPanel.add(btn5);
+        writeBtn.setBounds(0, 290, 120, 30);
+        menuPanel.add(writeBtn);
 
         postPanel.setBounds(125,115,375,325);
         postPanel.setOpaque(true);
@@ -206,8 +206,8 @@ public class MainFrame extends JFrame {
             }
             for(int i=0; i<arrayList.size(); i++) {
                 mentoringBtn[i] = new JButton(arrayList.get(i).getTitle());
-                mentoringBtn[i].setBounds(140, 115 + 50 * i, 330, 50);
-                homePanel.add(mentoringBtn[i]);
+                mentoringBtn[i].setBounds(0, 0+ 50 * i, 330, 50);
+                postPanel.add(mentoringBtn[i]);
                 mentoringBtn[i].setVisible(true);
                 int finalI = i;
                 mentoringBtn[i].addActionListener(e1 -> {
@@ -250,8 +250,8 @@ public class MainFrame extends JFrame {
             for(int i=0; i<arrayList.size(); i++)
             {
                 studyBtn[i] = new JButton(arrayList.get(i).getTitle());
-                studyBtn[i].setBounds(150, 115+50*i, 350, 50);
-                homePanel.add(studyBtn[i]);
+                studyBtn[i].setBounds(0, 0+50*i, 350, 50);
+                postPanel.add(studyBtn[i]);
                 studyBtn[i].setVisible(true);
                 int finalI = i;
                 studyBtn[i].addActionListener(e1 -> {
@@ -261,9 +261,6 @@ public class MainFrame extends JFrame {
             }
 
 
-
-        });
-        menuReserveBtn.addActionListener(e->{
 
         });
         menuLectureBtn.addActionListener(e->{
@@ -297,8 +294,8 @@ public class MainFrame extends JFrame {
             for(int i=0; i<arrayList.size(); i++)
             {
                 lectureBtn[i] = new JButton(arrayList.get(i).getTitle());
-                lectureBtn[i].setBounds(150, 115+50*i, 350, 50);
-                homePanel.add(lectureBtn[i]);
+                lectureBtn[i].setBounds(0, 0+50*i, 350, 50);
+                postPanel.add(lectureBtn[i]);
                 lectureBtn[i].setVisible(true);
                 int finalI = i;
                 lectureBtn[i].addActionListener(e1 -> {
@@ -311,7 +308,10 @@ public class MainFrame extends JFrame {
 
 
         });
-        btn5.addActionListener(e->{
+        menuReserveBtn.addActionListener(e->{
+
+        });
+        writeBtn.addActionListener(e->{
             homePanel.setVisible(false);
             createPostPanel.setVisible(true);
         });

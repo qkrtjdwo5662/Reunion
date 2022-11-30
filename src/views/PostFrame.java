@@ -39,7 +39,7 @@ public class PostFrame extends JFrame {
         postWriterLabel2.setForeground(Color.GRAY);
         postPanel.add(postWriterLabel2);
 
-        postFixedNumberLabel1 = new JLabel("잔여인원 :");
+        postFixedNumberLabel1 = new JLabel("신청 가능 명:");
         postFixedNumberLabel1.setBounds(280,100,50,40);
         postFixedNumberLabel1.setFont(new Font("Selif",Font.PLAIN,11));
         postFixedNumberLabel1.setForeground(Color.GRAY);
@@ -52,7 +52,7 @@ public class PostFrame extends JFrame {
         postPanel.add(postFixedNumberLabel2);
 
 
-        postContentLabel = new JLabel("안녕하세요 객체지향언어2 유상미 교수님 강의듣는 2학년 학생입니다.",JLabel.CENTER);
+        postContentLabel = new JLabel(postVO.getContent(),JLabel.CENTER);
         postContentLabel.setBounds(40, 75, 400, 200);
         postPanel.add(postContentLabel);
 
