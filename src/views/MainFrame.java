@@ -31,24 +31,24 @@ import databases.UserVO;
 
 public class MainFrame extends JFrame {
 	private Clip clip;
-	private String song ="sound/MP_Tiny-Button-Push.wav";
-	 private JPanel homePanel, menuPanel, postPanel;
-	    private ImageIcon icon, iconCoin, iconRoom1,iconRoom2,iconRoom3,iconRoom4;
-	    private JLabel coinLabel,imageLabel,imageLabel_coin,titleLabel,welcomeLabel,menuLabel,postTitleLabel,copyrightLabel;
-	    private JButton imageBtn1,imageBtn2,imageBtn3,imageBtn4,menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
-	    //--------------------------------------------------------------------//
-	    public JPanel createPostPanel;
-	    private JTextField titleText, memberText;
-	    private JButton createBtn, backBtn;
-	    private JTextArea contentsArea;
-	    private JLabel room1Label,room2Label,room3Label,room4Label,categoryLabel, nameLabel, contentsLabel,memberLabel;
+    private String song ="sound/MP_Tiny-Button-Push.wav";
+    private JPanel homePanel, menuPanel, postPanel;
+    private ImageIcon icon, iconCoin, iconRoom1,iconRoom2,iconRoom3,iconRoom4;
+    private JLabel coinLabel,imageLabel,imageLabel_coin,titleLabel,welcomeLabel,menuLabel,postTitleLabel,copyrightLabel;
+    private JButton imageBtn1,imageBtn2,imageBtn3,imageBtn4,menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
+    //--------------------------------------------------------------------//
+    public JPanel createPostPanel;
+    private JTextField titleText, memberText;
+    private JButton createBtn, backBtn;
+    private JTextArea contentsArea;
+    private JLabel room1Label,room2Label,room3Label,room4Label,categoryLabel, nameLabel, contentsLabel,memberLabel;
     //--------------------------------------------------------------------//
     String selectArray[] = {"Mentoring","Study","Lecture"};
     JComboBox<String> selectBox;
     String select;
     String seminar = "https://dorm.hansung.ac.kr/kor/dormitory/seminarroom.do";
     String group = "https://www.hansung.ac.kr/onestop/8952/subview.do";
-    String study = "https://www.hansung.ac.kr/cncschool/7312/subview.do"; 
+    String study = "https://www.hansung.ac.kr/cncschool/7312/subview.do";
     String library = "https://hsel.hansung.ac.kr/guide_group_study.mir";
 
     PostVO postVO;
@@ -74,7 +74,7 @@ public class MainFrame extends JFrame {
         postPanel.setLayout(null);
         Font font = new Font("Arial", Font.BOLD, 20);
 
-        icon = new ImageIcon("image1/rogo.jpg"); // 이미지 로딩
+        icon = new ImageIcon("image1/logo.jpg"); // 이미지 로딩
         imageLabel = new JLabel(icon); // 이미지 레이블 만들기
         imageLabel.setBounds(0,0,375,325);
         postPanel.add(imageLabel);
@@ -101,6 +101,7 @@ public class MainFrame extends JFrame {
         homePanel.add(room4Label);
         titleLabel = new JLabel("Reunion",JLabel.CENTER);
         titleLabel.setBounds(100, 10, 300, 50);
+        titleLabel.setForeground(new Color(40, 40, 120, 255));
         titleLabel.setFont(font);
         homePanel.add(titleLabel);
 
@@ -112,6 +113,7 @@ public class MainFrame extends JFrame {
 
         copyrightLabel = new JLabel("@2022 Team Reunion All Rights Reserved");
         copyrightLabel.setBounds(0,450,500,15);
+        copyrightLabel.setForeground(new Color(40, 40, 120, 255));
         homePanel.add(copyrightLabel);
 
         LabelThread lt = new LabelThread();
@@ -119,6 +121,8 @@ public class MainFrame extends JFrame {
 
         menuLabel = new JLabel("MENU",JLabel.CENTER);
         menuLabel.setBounds(0, 10, 120, 20);
+        menuLabel.setForeground(new Color(255, 255, 255, 255));
+        menuLabel.setFont(font);
         menuPanel.add(menuLabel);
 
         menuMentoringBtn = new JButton("Mentoring");
@@ -143,7 +147,7 @@ public class MainFrame extends JFrame {
         //--------------------------------------------------------------------//
         menuPanel.setBounds(5, 115, 120, 325);
         menuPanel.setOpaque(true);
-        menuPanel.setBackground(new Color(165, 229, 252, 255));
+        menuPanel.setBackground(new Color(40, 40, 120, 255));
         homePanel.add(menuPanel);
 
         menuMentoringBtn.setBounds(0, 50, 120, 30);
