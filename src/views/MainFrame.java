@@ -30,20 +30,20 @@ import databases.PostVO;
 import databases.UserVO;
 
 public class MainFrame extends JFrame {
-	private Clip clip;
-    private String song ="sound/MP_Tiny-Button-Push.wav";
+    private Clip clip;
+    private String song = "sound/MP_Tiny-Button-Push.wav";
     private JPanel homePanel, menuPanel, postPanel;
-    private ImageIcon icon, iconCoin, iconRoom1,iconRoom2,iconRoom3,iconRoom4;
-    private JLabel coinLabel,imageLabel,imageLabel_coin,titleLabel,welcomeLabel,menuLabel,postTitleLabel,copyrightLabel;
-    private JButton imageBtn1,imageBtn2,imageBtn3,imageBtn4,menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
+    private ImageIcon icon, iconCoin, iconRoom1, iconRoom2, iconRoom3, iconRoom4;
+    private JLabel coinLabel, imageLabel, imageLabel_coin, titleLabel, welcomeLabel, menuLabel, postTitleLabel, copyrightLabel;
+    private JButton imageBtn1, imageBtn2, imageBtn3, imageBtn4, menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
     //--------------------------------------------------------------------//
     public JPanel createPostPanel;
     private JTextField titleText, memberText;
     private JButton createBtn, backBtn;
     private JTextArea contentsArea;
-    private JLabel room1Label,room2Label,room3Label,room4Label,categoryLabel, nameLabel, contentsLabel,memberLabel;
+    private JLabel room1Label, room2Label, room3Label, room4Label, categoryLabel, nameLabel, contentsLabel, memberLabel;
     //--------------------------------------------------------------------//
-    String selectArray[] = {"Mentoring","Study","Lecture"};
+    String selectArray[] = {"Mentoring", "Study", "Lecture"};
     JComboBox<String> selectBox;
     String select;
     String seminar = "https://dorm.hansung.ac.kr/kor/dormitory/seminarroom.do";
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame(UserVO userVO) {
 
-        setSize(500,500);
+        setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);// window center
 
@@ -76,50 +76,49 @@ public class MainFrame extends JFrame {
 
         icon = new ImageIcon("image1/logo.jpg"); // 이미지 로딩
         imageLabel = new JLabel(icon); // 이미지 레이블 만들기
-        imageLabel.setBounds(0,0,375,325);
+        imageLabel.setBounds(0, 0, 375, 325);
         postPanel.add(imageLabel);
-        
+
         iconCoin = new ImageIcon("image1/coin.jpg"); // 이미지 로딩
         imageLabel_coin = new JLabel(iconCoin); // 이미지 레이블 만들기
-        imageLabel_coin.setSize(iconCoin.getIconHeight(),iconCoin.getIconWidth());
-        imageLabel_coin.setLocation(15,80);
+        imageLabel_coin.setSize(iconCoin.getIconHeight(), iconCoin.getIconWidth());
+        imageLabel_coin.setLocation(15, 80);
         homePanel.add(imageLabel_coin);
 
         //coinLabel
         coinLabel = new JLabel("820");
-        coinLabel.setBounds(38,80,150,20);
+        coinLabel.setBounds(38, 80, 150, 20);
         homePanel.add(coinLabel);
- 
+
         //roomLabel
-        room1Label = new JLabel ("상빌 B1층 세미나실");
+        room1Label = new JLabel("상빌 B1층 세미나실");
         homePanel.add(room1Label);
-        room2Label = new JLabel ("상상관 B2층 상상베이스");
+        room2Label = new JLabel("상상관 B2층 상상베이스");
         homePanel.add(room2Label);
-        room3Label = new JLabel ("상상플러스 스터디룸");
+        room3Label = new JLabel("상상플러스 스터디룸");
         homePanel.add(room3Label);
-        room4Label = new JLabel ("학술정보관 그룹스터디실");
+        room4Label = new JLabel("학술정보관 그룹스터디실");
         homePanel.add(room4Label);
-        titleLabel = new JLabel("Reunion",JLabel.CENTER);
+        titleLabel = new JLabel("Reunion", JLabel.CENTER);
         titleLabel.setBounds(100, 10, 300, 50);
         titleLabel.setForeground(new Color(40, 40, 120, 255));
         titleLabel.setFont(font);
         homePanel.add(titleLabel);
 
-        welcomeLabel = new JLabel(userVO.getName()+"님 환영합니다",JLabel.CENTER);
-        welcomeLabel.setBounds(5,60,120,20);
+        welcomeLabel = new JLabel(userVO.getName() + "님 환영합니다", JLabel.CENTER);
+        welcomeLabel.setBounds(5, 60, 120, 20);
         homePanel.add(welcomeLabel);
 
 
-
         copyrightLabel = new JLabel("@2022 Team Reunion All Rights Reserved");
-        copyrightLabel.setBounds(0,450,500,15);
+        copyrightLabel.setBounds(0, 450, 500, 15);
         copyrightLabel.setForeground(new Color(40, 40, 120, 255));
         homePanel.add(copyrightLabel);
 
         LabelThread lt = new LabelThread();
         lt.start();
 
-        menuLabel = new JLabel("MENU",JLabel.CENTER);
+        menuLabel = new JLabel("MENU", JLabel.CENTER);
         menuLabel.setBounds(0, 10, 120, 20);
         menuLabel.setForeground(new Color(255, 255, 255, 255));
         menuLabel.setFont(font);
@@ -165,12 +164,12 @@ public class MainFrame extends JFrame {
         writeBtn.setBounds(0, 290, 120, 30);
         menuPanel.add(writeBtn);
 
-        postPanel.setBounds(125,115,375,325);
+        postPanel.setBounds(125, 115, 375, 325);
         postPanel.setOpaque(true);
         postPanel.setBackground(new Color(255, 255, 255, 255));
         homePanel.add(postPanel);
 
-        postTitleLabel = new JLabel("제목",JLabel.CENTER);
+        postTitleLabel = new JLabel("제목", JLabel.CENTER);
         postTitleLabel.setBounds(0, 10, 375, 20);
         postPanel.add(postTitleLabel);
         postTitleLabel.setVisible(false);
@@ -184,31 +183,31 @@ public class MainFrame extends JFrame {
         createPostPanel.setLayout(null);
 
         categoryLabel = new JLabel("분류");
-        categoryLabel.setBounds(50, 25,100,25);
+        categoryLabel.setBounds(50, 25, 100, 25);
         createPostPanel.add(categoryLabel);
 
         selectBox = new JComboBox<>(selectArray);
-        selectBox.setBounds(45,45, 150, 25);
+        selectBox.setBounds(45, 45, 150, 25);
         createPostPanel.add(selectBox);
 
         nameLabel = new JLabel("제목");
-        nameLabel.setBounds(50, 85,100,25);
+        nameLabel.setBounds(50, 85, 100, 25);
         createPostPanel.add(nameLabel);
 
         contentsLabel = new JLabel("내용");
-        contentsLabel.setBounds(50,150,100,25);
+        contentsLabel.setBounds(50, 150, 100, 25);
         createPostPanel.add(contentsLabel);
 
         memberLabel = new JLabel("참여 인원 수");
-        memberLabel.setBounds(50,310,100,25);
+        memberLabel.setBounds(50, 310, 100, 25);
         createPostPanel.add(memberLabel);
 
         titleText = new JTextField();
         titleText.setBounds(45, 105, 240, 30);
         createPostPanel.add(titleText);
         titleText.setColumns(25);
-        
-        contentsArea = new JTextArea("",10,10);
+
+        contentsArea = new JTextArea("", 10, 10);
         contentsArea.setLineWrap(true);//글쓰기 자동 줄 바꿈
         createPostPanel.add(contentsArea);
         contentsArea.setBounds(45, 170, 240, 120);
@@ -230,7 +229,6 @@ public class MainFrame extends JFrame {
         //--------------------------------------------------------------------//
 
 
-
         setVisible(true);
         loadAudio(song);
         setResizable(false);
@@ -238,7 +236,7 @@ public class MainFrame extends JFrame {
         add(homePanel);
         createPostPanel.setVisible(false);
 
-        for(int i=0; i<10; i++){
+        for (int i = 0; i < 10; i++) {
             mentoringBtn[i] = new JButton();
             studyBtn[i] = new JButton();
             lectureBtn[i] = new JButton();
@@ -248,11 +246,12 @@ public class MainFrame extends JFrame {
 
         }
         menuMentoringBtn.addActionListener(e -> {
-        	clip.setFramePosition(0);
+            clip.setFramePosition(0);
             clip.start();
             menuMentoringBtn.setEnabled(false);
             menuStudyBtn.setEnabled(true);
             menuLectureBtn.setEnabled(true);
+            menuReserveBtn.setEnabled(true);
             //true -> false
             imageLabel.setVisible(false);
             imageBtn1.setVisible(false);
@@ -268,42 +267,41 @@ public class MainFrame extends JFrame {
             //modify text
             titleLabel.setText("Mentoring");
             postDAO = new PostDAO();
-            arrayList =new ArrayList<PostVO>();
+            arrayList = new ArrayList<PostVO>();
             arrayList = postDAO.read(menuMentoringBtn.getText());
 
-            for(int i=0; i<studyBtn.length; i++)
-            {
+            for (int i = 0; i < studyBtn.length; i++) {
                 studyBtn[i].setVisible(false);
                 homePanel.remove(studyBtn[i]);
             }
 
-            for(int i=0; i<lectureBtn.length; i++)
-            {
+            for (int i = 0; i < lectureBtn.length; i++) {
                 lectureBtn[i].setVisible(false);
                 homePanel.remove(lectureBtn[i]);
             }
-            for(int i=0; i<arrayList.size(); i++) {
+            for (int i = 0; i < arrayList.size(); i++) {
                 mentoringBtn[i] = new JButton(arrayList.get(i).getTitle());
-                mentoringBtn[i].setBounds(0, 0+ 50 * i, 330, 50);
+                mentoringBtn[i].setBounds(0, 0 + 50 * i, 330, 50);
                 postPanel.add(mentoringBtn[i]);
                 mentoringBtn[i].setVisible(true);
                 int finalI = i;
                 mentoringBtn[i].addActionListener(e1 -> {
-                	clip.setFramePosition(0);
+                    clip.setFramePosition(0);
                     clip.start();
                     setVisible(false);
-                    new PostFrame(userVO,arrayList.get(finalI));
+                    new PostFrame(userVO, arrayList.get(finalI));
                 });
             }
 
 
         });
-        menuStudyBtn.addActionListener(e->{
-        	clip.setFramePosition(0);
+        menuStudyBtn.addActionListener(e -> {
+            clip.setFramePosition(0);
             clip.start();
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(false);
             menuLectureBtn.setEnabled(true);
+            menuReserveBtn.setEnabled(true);
             //true -> false
             imageLabel.setVisible(false);
             imageBtn1.setVisible(false);
@@ -319,48 +317,44 @@ public class MainFrame extends JFrame {
             //modify text
             titleLabel.setText("Study");
             postDAO = new PostDAO();
-            arrayList =new ArrayList<PostVO>();
+            arrayList = new ArrayList<PostVO>();
             arrayList = postDAO.read(menuStudyBtn.getText());
 
 
-
-            for(int i=0; i<mentoringBtn.length; i++)
-            {
+            for (int i = 0; i < mentoringBtn.length; i++) {
                 mentoringBtn[i].setVisible(false);
                 homePanel.remove(mentoringBtn[i]);
 
             }
 
-            for(int i=0; i<lectureBtn.length; i++)
-            {
+            for (int i = 0; i < lectureBtn.length; i++) {
                 lectureBtn[i].setVisible(false);
                 homePanel.remove(lectureBtn[i]);
 
             }
-            for(int i=0; i<arrayList.size(); i++)
-            {
+            for (int i = 0; i < arrayList.size(); i++) {
                 studyBtn[i] = new JButton(arrayList.get(i).getTitle());
-                studyBtn[i].setBounds(0, 0+50*i, 350, 50);
+                studyBtn[i].setBounds(0, 0 + 50 * i, 350, 50);
                 postPanel.add(studyBtn[i]);
                 studyBtn[i].setVisible(true);
                 int finalI = i;
                 studyBtn[i].addActionListener(e1 -> {
-                	clip.setFramePosition(0);
+                    clip.setFramePosition(0);
                     clip.start();
                     setVisible(false);
-                    new PostFrame(userVO,arrayList.get(finalI));
+                    new PostFrame(userVO, arrayList.get(finalI));
                 });
             }
 
 
-
         });
-        menuLectureBtn.addActionListener(e->{
-        	clip.setFramePosition(0);
+        menuLectureBtn.addActionListener(e -> {
+            clip.setFramePosition(0);
             clip.start();
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(true);
             menuLectureBtn.setEnabled(false);
+            menuReserveBtn.setEnabled(true);
             //true -> false
             imageLabel.setVisible(false);
             imageBtn1.setVisible(false);
@@ -376,46 +370,47 @@ public class MainFrame extends JFrame {
             //modify text
             titleLabel.setText("Lecture");
             postDAO = new PostDAO();
-            arrayList =new ArrayList<PostVO>();
+            arrayList = new ArrayList<PostVO>();
             arrayList = postDAO.read(menuLectureBtn.getText());
 
 
-            for(int i=0; i<mentoringBtn.length; i++)
-            {
+            for (int i = 0; i < mentoringBtn.length; i++) {
                 mentoringBtn[i].setVisible(false);
                 homePanel.remove(mentoringBtn[i]);
 
             }
 
-            for(int i=0; i<studyBtn.length; i++)
-            {
+            for (int i = 0; i < studyBtn.length; i++) {
                 studyBtn[i].setVisible(false);
-               homePanel.remove(studyBtn[i]);
+                homePanel.remove(studyBtn[i]);
 
             }
-            for(int i=0; i<arrayList.size(); i++)
-            {
+            for (int i = 0; i < arrayList.size(); i++) {
                 lectureBtn[i] = new JButton(arrayList.get(i).getTitle());
-                lectureBtn[i].setBounds(0, 0+50*i, 350, 50);
+                lectureBtn[i].setBounds(0, 0 + 50 * i, 350, 50);
                 postPanel.add(lectureBtn[i]);
                 lectureBtn[i].setVisible(true);
                 int finalI = i;
                 lectureBtn[i].addActionListener(e1 -> {
-                	clip.setFramePosition(0);
+                    clip.setFramePosition(0);
                     clip.start();
 
                     setVisible(false);
-                    new PostFrame(userVO,arrayList.get(finalI));
+                    new PostFrame(userVO, arrayList.get(finalI));
                 });
             }
 
 
-
         });
-        menuReserveBtn.addActionListener(e->{
-        	clip.setFramePosition(0);
+        menuReserveBtn.addActionListener(e -> {
+            clip.setFramePosition(0);
             clip.start();
-            
+
+            menuMentoringBtn.setEnabled(true);
+            menuStudyBtn.setEnabled(true);
+            menuLectureBtn.setEnabled(true);
+            menuReserveBtn.setEnabled(false);
+
             imageLabel.setVisible(false);
             imageBtn1.setVisible(true);
             imageBtn2.setVisible(true);
@@ -425,71 +420,69 @@ public class MainFrame extends JFrame {
             room2Label.setVisible(true);
             room3Label.setVisible(true);
             room4Label.setVisible(true);
-            
-             imageBtn1.setSize(130,130);
-             imageBtn1.setLocation(160,115);
-             //homePanel.add(imageBtn1);
-             room1Label.setBounds(170, 240, 200, 50);
-             //homePanel.add(room1Label);
-             
-             imageBtn2.setSize(130,130);
-             imageBtn2.setLocation(330,115);
-             //homePanel.add(imageBtn2);
-             room2Label.setBounds(325, 240, 200, 50);
-             //homePanel.add(room2Label);
-             
-             imageBtn3.setSize(130,130);
-             imageBtn3.setLocation(160,290);
-             //homePanel.add(imageBtn3);
-             room3Label.setBounds(170, 410, 200, 50);
-             //homePanel.add(room3Label);
-             
-             imageBtn4.setSize(130,130);
-             imageBtn4.setLocation(330,290);
-             //homePanel.add(imageBtn4);
-             room4Label.setBounds(325, 410, 200, 50);
-             //homePanel.add(room4Label);
-             
-         });
-         imageBtn1.addActionListener(e->{
-             try {
-             Desktop.getDesktop().browse(new URI(seminar));
-          } catch (IOException | URISyntaxException e1) {
-             e1.printStackTrace();
-          }
-          });
-          
-          imageBtn2.addActionListener(e->{
-             try {
-             Desktop.getDesktop().browse(new URI(group));
-          } catch (IOException | URISyntaxException e1) {
-             e1.printStackTrace();
-          }
-          });
-          
-          imageBtn3.addActionListener(e->{
-             try {
-             Desktop.getDesktop().browse(new URI(study));
-          } catch (IOException | URISyntaxException e1) {
-             e1.printStackTrace();
-          }
-          });
-          imageBtn4.addActionListener(e->{
-              try {
-              Desktop.getDesktop().browse(new URI(library));
-           } catch (IOException | URISyntaxException e1) {
-              e1.printStackTrace();
-           }
-           });
-        writeBtn.addActionListener(e->{
-        	clip.setFramePosition(0);
+
+            imageBtn1.setSize(130, 130);
+            imageBtn1.setLocation(160, 115);
+            room1Label.setBounds(170, 240, 200, 50);
+
+            imageBtn2.setSize(130, 130);
+            imageBtn2.setLocation(330, 115);
+            room2Label.setBounds(325, 240, 200, 50);
+
+            imageBtn3.setSize(130, 130);
+            imageBtn3.setLocation(160, 290);
+            room3Label.setBounds(170, 410, 200, 50);
+
+            imageBtn4.setSize(130, 130);
+            imageBtn4.setLocation(330, 290);
+            room4Label.setBounds(325, 410, 200, 50);
+
+            for (int i = 0; i < 10; i++) {
+                mentoringBtn[i].setVisible(false);
+                studyBtn[i].setVisible(false);
+                lectureBtn[i].setVisible(false);
+            }
+
+        });
+        imageBtn1.addActionListener(e -> {
+            try {
+                Desktop.getDesktop().browse(new URI(seminar));
+            } catch (IOException | URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        imageBtn2.addActionListener(e -> {
+            try {
+                Desktop.getDesktop().browse(new URI(group));
+            } catch (IOException | URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        imageBtn3.addActionListener(e -> {
+            try {
+                Desktop.getDesktop().browse(new URI(study));
+            } catch (IOException | URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        });
+        imageBtn4.addActionListener(e -> {
+            try {
+                Desktop.getDesktop().browse(new URI(library));
+            } catch (IOException | URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        });
+        writeBtn.addActionListener(e -> {
+            clip.setFramePosition(0);
             clip.start();
             homePanel.setVisible(false);
             createPostPanel.setVisible(true);
         });
 
-        createBtn.addActionListener(e->{
-        	clip.setFramePosition(0);
+        createBtn.addActionListener(e -> {
+            clip.setFramePosition(0);
             clip.start();
             select = selectBox.getSelectedItem().toString();
             System.out.println(select);
@@ -499,8 +492,8 @@ public class MainFrame extends JFrame {
                 throw new RuntimeException(ex);
             }
         });
-        backBtn.addActionListener(e->{
-        	clip.setFramePosition(0);
+        backBtn.addActionListener(e -> {
+            clip.setFramePosition(0);
             clip.start();
             homePanel.setVisible(true);
             createPostPanel.setVisible(false);
@@ -510,8 +503,8 @@ public class MainFrame extends JFrame {
         });
 
 
-
     }
+
     public void create(UserVO vo) throws ParseException {
 
         postVO = new PostVO();
@@ -522,27 +515,31 @@ public class MainFrame extends JFrame {
         postVO.setUser_Id(vo.getUser_Id());
 
         PostDAO postDAO = new PostDAO();
-        if(postDAO.create(postVO)){
-            JOptionPane.showMessageDialog(null,"글생성완료");
+        if (postDAO.create(postVO)) {
+            JOptionPane.showMessageDialog(null, "글생성완료");
             createPostPanel.setVisible(false);
             homePanel.setVisible(true);
-        }else {
-            JOptionPane.showMessageDialog(null,"글생성실패");
+        } else {
+            JOptionPane.showMessageDialog(null, "글생성실패");
         }
     }
-    
+
     private void loadAudio(String pathName) {
         try {
             clip = AudioSystem.getClip(); // 비어있는 오디오 클립 만들기
-              File audioFile = new File(pathName); // 오디오 파일의 경로명
-              AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // 오디오 파일로부터
-              clip.open(audioStream); // 재생할 오디오 스트림 열기
-          }
-          catch (LineUnavailableException e) { e.printStackTrace(); }
-          catch (UnsupportedAudioFileException e) { e.printStackTrace(); }
-          catch (IOException e) { e.printStackTrace(); }
-
+            File audioFile = new File(pathName); // 오디오 파일의 경로명
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // 오디오 파일로부터
+            clip.open(audioStream); // 재생할 오디오 스트림 열기
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+    }
+
     class LabelThread extends Thread {
         @Override
         public void run() {
@@ -566,6 +563,7 @@ public class MainFrame extends JFrame {
             }
         }
     }
+
     public static void main(String[] args) {
         UserVO vo = new UserVO();
         MainFrame mainFrame = new MainFrame(vo);
