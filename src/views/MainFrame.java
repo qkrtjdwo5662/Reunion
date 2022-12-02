@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
     private JPanel homePanel, menuPanel, postPanel;
     private ImageIcon icon, iconCoin, iconRoom1, iconRoom2, iconRoom3, iconRoom4;
     private JLabel coinLabel, imageLabel, imageLabel_coin, titleLabel, welcomeLabel, menuLabel, postTitleLabel, copyrightLabel;
-    private JButton imageBtn1, imageBtn2, imageBtn3, imageBtn4, menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
+    private JButton imageBtn1, imageBtn2, imageBtn3, imageBtn4, menuHomeBtn,menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
     //--------------------------------------------------------------------//
     public JPanel createPostPanel;
     private JTextField titleText, memberText;
@@ -124,6 +124,7 @@ public class MainFrame extends JFrame {
         menuLabel.setFont(font);
         menuPanel.add(menuLabel);
 
+        menuHomeBtn = new JButton("Home");
         menuMentoringBtn = new JButton("Mentoring");
         menuStudyBtn = new JButton("Study");
         menuReserveBtn = new JButton("스터디룸 예약");
@@ -149,13 +150,16 @@ public class MainFrame extends JFrame {
         menuPanel.setBackground(new Color(40, 40, 120, 255));
         homePanel.add(menuPanel);
 
-        menuMentoringBtn.setBounds(0, 50, 120, 30);
+        menuHomeBtn.setBounds(0,50,120,30);
+        menuPanel.add(menuHomeBtn);
+
+        menuMentoringBtn.setBounds(0, 90, 120, 30);
         menuPanel.add(menuMentoringBtn);
 
-        menuStudyBtn.setBounds(0, 90, 120, 30);
+        menuStudyBtn.setBounds(0, 130, 120, 30);
         menuPanel.add(menuStudyBtn);
 
-        menuLectureBtn.setBounds(0, 130, 120, 30);
+        menuLectureBtn.setBounds(0, 170, 120, 30);
         menuPanel.add(menuLectureBtn);
 
         menuReserveBtn.setBounds(0, 250, 120, 30);
@@ -245,9 +249,37 @@ public class MainFrame extends JFrame {
             homePanel.add(lectureBtn[i]);
 
         }
+        menuHomeBtn.addActionListener(e->{
+            clip.setFramePosition(0);
+            clip.start();
+            for (int i = 0; i < 10; i++) {
+                mentoringBtn[i].setVisible(false);
+                studyBtn[i].setVisible(false);
+                lectureBtn[i].setVisible(false);
+            }
+            imageLabel.setVisible(true);
+            imageBtn1.setVisible(false);
+            imageBtn2.setVisible(false);
+            imageBtn3.setVisible(false);
+            imageBtn4.setVisible(false);
+            room1Label.setVisible(false);
+            room2Label.setVisible(false);
+            room3Label.setVisible(false);
+            room4Label.setVisible(false);
+
+            titleLabel.setText("Reunion");
+
+            menuHomeBtn.setEnabled(false);
+            menuMentoringBtn.setEnabled(true);
+            menuStudyBtn.setEnabled(true);
+            menuLectureBtn.setEnabled(true);
+            menuReserveBtn.setEnabled(true);
+        });
         menuMentoringBtn.addActionListener(e -> {
             clip.setFramePosition(0);
             clip.start();
+
+            menuHomeBtn.setEnabled(true);
             menuMentoringBtn.setEnabled(false);
             menuStudyBtn.setEnabled(true);
             menuLectureBtn.setEnabled(true);
@@ -298,6 +330,8 @@ public class MainFrame extends JFrame {
         menuStudyBtn.addActionListener(e -> {
             clip.setFramePosition(0);
             clip.start();
+
+            menuHomeBtn.setEnabled(true);
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(false);
             menuLectureBtn.setEnabled(true);
@@ -351,6 +385,8 @@ public class MainFrame extends JFrame {
         menuLectureBtn.addActionListener(e -> {
             clip.setFramePosition(0);
             clip.start();
+
+            menuHomeBtn.setEnabled(true);
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(true);
             menuLectureBtn.setEnabled(false);
@@ -406,6 +442,7 @@ public class MainFrame extends JFrame {
             clip.setFramePosition(0);
             clip.start();
 
+            menuHomeBtn.setEnabled(true);
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(true);
             menuLectureBtn.setEnabled(true);
@@ -437,6 +474,7 @@ public class MainFrame extends JFrame {
             imageBtn4.setLocation(330, 290);
             room4Label.setBounds(325, 410, 200, 50);
 
+            titleLabel.setText("Reservation");
             for (int i = 0; i < 10; i++) {
                 mentoringBtn[i].setVisible(false);
                 studyBtn[i].setVisible(false);
