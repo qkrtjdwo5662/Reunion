@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
         postPanel.add(imageLabel);
 
         title = new JLabel("제 목",JLabel.CENTER);
-        title.setBounds(125,100,340,15);
+        title.setBounds(120,95,360,20);
         homePanel.add(title);
         title.setVisible(false);
 
@@ -324,7 +324,8 @@ public class MainFrame extends JFrame {
             }
             for (int i = 0; i < arrayList.size(); i++) {
                 mentoringBtn[i] = new JButton(arrayList.get(i).getTitle());
-                mentoringBtn[i].setBounds(0, 0 + 50 * i, 330, 50);
+                mentoringBtn[i].setBounds(0, 0 + 50 * i, 360, 50);
+                mentoringBtn[i].setBorder(new LineBorder(new Color(40, 40, 120, 255),1,true));
                 postPanel.add(mentoringBtn[i]);
                 mentoringBtn[i].setVisible(true);
                 int finalI = i;
@@ -380,7 +381,8 @@ public class MainFrame extends JFrame {
             }
             for (int i = 0; i < arrayList.size(); i++) {
                 studyBtn[i] = new JButton(arrayList.get(i).getTitle());
-                studyBtn[i].setBounds(0, 0+ 50 * i, 350, 50);
+                studyBtn[i].setBounds(0, 0+ 50 * i, 360, 50);
+                studyBtn[i].setBorder(new LineBorder(new Color(40, 40, 120, 255),1,true));
                 postPanel.add(studyBtn[i]);
                 studyBtn[i].setVisible(true);
                 int finalI = i;
@@ -436,7 +438,8 @@ public class MainFrame extends JFrame {
             }
             for (int i = 0; i < arrayList.size(); i++) {
                 lectureBtn[i] = new JButton(arrayList.get(i).getTitle());
-                lectureBtn[i].setBounds(0, 0 + 50 * i, 350, 50);
+                lectureBtn[i].setBounds(0, 0 + 50 * i, 360, 50);
+                lectureBtn[i].setBorder(new LineBorder(new Color(40, 40, 120, 255),1,true));
                 postPanel.add(lectureBtn[i]);
                 lectureBtn[i].setVisible(true);
                 int finalI = i;
