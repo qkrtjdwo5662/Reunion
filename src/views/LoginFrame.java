@@ -140,12 +140,17 @@ public class LoginFrame extends JFrame {
             loginPanel.setVisible(false);
             joinPanel.setVisible(true);
         });
-        //회원가입 액션
         backBtn.addActionListener(e ->{
         	clip.setFramePosition(0);
             clip.start();
             loginPanel.setVisible(true);
             joinPanel.setVisible(false);
+
+            id_JoinText.setText("");
+            pw_JoinText.setText("");
+            name_JoinText.setText("");
+            phoneNum_JoinText.setText("");
+            email_JoinText.setText("");
         });
         
         registerBtn.addActionListener(e -> {
@@ -162,6 +167,8 @@ public class LoginFrame extends JFrame {
         userVO.setUser_Id(id_JoinText.getText());
         userVO.setPassword(pw_JoinText.getText());
         userVO.setName(name_JoinText.getText());
+        userVO.setPhoneNumber(phoneNum_JoinText.getText());
+        userVO.setEmail(email_JoinText.getText());
 
         UserDAO dao = new UserDAO();
         if(dao.create(userVO)){
