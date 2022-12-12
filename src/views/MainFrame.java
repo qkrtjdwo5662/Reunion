@@ -553,13 +553,36 @@ public class MainFrame extends JFrame {
         postVO.setUser_Id(vo.getUser_Id());
 
         PostDAO postDAO = new PostDAO();
-        if (postDAO.create(postVO)) {
-            JOptionPane.showMessageDialog(null, "글생성완료");
-            createPostPanel.setVisible(false);
-            homePanel.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "글생성실패");
-        }
+        if(selectBox.getSelectedItem().toString().equals("Mentoring")){
+            if(vo.getAuthority().equals("mentor")||vo.getAuthority().equals("master")){
+                if (postDAO.create(postVO)) {
+                    JOptionPane.showMessageDialog(null, "글생성완료");
+                    createPostPanel.setVisible(false);
+                    homePanel.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "글생성실패");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "권한이 없습니다.");
+                createPostPanel.setVisible(false);
+                homePanel.setVisible(true);
+            }
+        }else if(selectBox.getSelectedItem().toString().equals("Lecture")){
+            if(vo.getAuthority().equals("master")){
+                if (postDAO.create(postVO)) {
+                    JOptionPane.showMessageDialog(null, "글생성완료");
+                    createPostPanel.setVisible(false);
+                    homePanel.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "글생성실패");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "권한이 없습니다.");
+                createPostPanel.setVisible(false);
+                homePanel.setVisible(true);
+            }
+        }else return;
+
     }
 
     private void loadAudio(String pathName) {
