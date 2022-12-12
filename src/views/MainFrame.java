@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import databases.PostDAO;
 import databases.PostVO;
@@ -41,9 +43,9 @@ public class MainFrame extends JFrame {
     private JTextField titleText, memberText;
     private JButton createBtn, backBtn;
     private JTextArea contentsArea;
-    private JLabel room1Label, room2Label, room3Label, room4Label, categoryLabel, nameLabel, contentsLabel, memberLabel;
+    private JLabel room1Label, room2Label, room3Label, room4Label, categoryLabel, nameLabel, contentsLabel, memberLabel,title;
     //--------------------------------------------------------------------//
-    String selectArray[] = {"Mentoring", "Study", "Lecture"};
+    String selectArray[] = {"스터디그룹","멘토링", "강의"};
     JComboBox<String> selectBox;
     String select;
     String seminar = "https://dorm.hansung.ac.kr/kor/dormitory/seminarroom.do";
@@ -78,6 +80,11 @@ public class MainFrame extends JFrame {
         imageLabel = new JLabel(icon); // 이미지 레이블 만들기
         imageLabel.setBounds(0, 0, 375, 325);
         postPanel.add(imageLabel);
+
+        title = new JLabel("제 목",JLabel.CENTER);
+        title.setBounds(125,100,340,15);
+        homePanel.add(title);
+        title.setVisible(false);
 
         iconCoin = new ImageIcon("image1/coin.jpg"); // 이미지 로딩
         imageLabel_coin = new JLabel(iconCoin); // 이미지 레이블 만들기
@@ -125,10 +132,10 @@ public class MainFrame extends JFrame {
         menuPanel.add(menuLabel);
 
         menuHomeBtn = new JButton("Home");
-        menuMentoringBtn = new JButton("Mentoring");
-        menuStudyBtn = new JButton("Study");
+        menuStudyBtn = new JButton("스터디그룹");
+        menuMentoringBtn = new JButton("멘토링");
+        menuLectureBtn = new JButton("강의");
         menuReserveBtn = new JButton("스터디룸 예약");
-        menuLectureBtn = new JButton("Lecture");
         writeBtn = new JButton("글쓰기");
 
         //image
@@ -153,11 +160,13 @@ public class MainFrame extends JFrame {
         menuHomeBtn.setBounds(0,50,120,30);
         menuPanel.add(menuHomeBtn);
 
-        menuMentoringBtn.setBounds(0, 90, 120, 30);
+        menuStudyBtn.setBounds(0, 90, 120, 30);
+        menuPanel.add(menuStudyBtn);
+
+        menuMentoringBtn.setBounds(0, 130, 120, 30);
         menuPanel.add(menuMentoringBtn);
 
-        menuStudyBtn.setBounds(0, 130, 120, 30);
-        menuPanel.add(menuStudyBtn);
+
 
         menuLectureBtn.setBounds(0, 170, 120, 30);
         menuPanel.add(menuLectureBtn);
@@ -257,6 +266,7 @@ public class MainFrame extends JFrame {
                 studyBtn[i].setVisible(false);
                 lectureBtn[i].setVisible(false);
             }
+            title.setVisible(false);
             imageLabel.setVisible(true);
             imageBtn1.setVisible(false);
             imageBtn2.setVisible(false);
@@ -279,6 +289,7 @@ public class MainFrame extends JFrame {
             clip.setFramePosition(0);
             clip.start();
 
+            title.setVisible(true);
             menuHomeBtn.setEnabled(true);
             menuMentoringBtn.setEnabled(false);
             menuStudyBtn.setEnabled(true);
@@ -331,6 +342,7 @@ public class MainFrame extends JFrame {
             clip.setFramePosition(0);
             clip.start();
 
+            title.setVisible(true);
             menuHomeBtn.setEnabled(true);
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(false);
@@ -368,7 +380,7 @@ public class MainFrame extends JFrame {
             }
             for (int i = 0; i < arrayList.size(); i++) {
                 studyBtn[i] = new JButton(arrayList.get(i).getTitle());
-                studyBtn[i].setBounds(0, 0 + 50 * i, 350, 50);
+                studyBtn[i].setBounds(0, 0+ 50 * i, 350, 50);
                 postPanel.add(studyBtn[i]);
                 studyBtn[i].setVisible(true);
                 int finalI = i;
@@ -386,6 +398,7 @@ public class MainFrame extends JFrame {
             clip.setFramePosition(0);
             clip.start();
 
+            title.setVisible(true);
             menuHomeBtn.setEnabled(true);
             menuMentoringBtn.setEnabled(true);
             menuStudyBtn.setEnabled(true);
@@ -448,6 +461,7 @@ public class MainFrame extends JFrame {
             menuLectureBtn.setEnabled(true);
             menuReserveBtn.setEnabled(false);
 
+            title.setVisible(false);
             imageLabel.setVisible(false);
             imageBtn1.setVisible(true);
             imageBtn2.setVisible(true);
@@ -527,6 +541,7 @@ public class MainFrame extends JFrame {
             try {
                 create(userVO);
             } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(null, "형식에 맞게 다시 작성해주세요");
                 throw new RuntimeException(ex);
             }
         });
@@ -553,35 +568,64 @@ public class MainFrame extends JFrame {
         postVO.setUser_Id(vo.getUser_Id());
 
         PostDAO postDAO = new PostDAO();
-        if(selectBox.getSelectedItem().toString().equals("Mentoring")){
+        if(selectBox.getSelectedItem().toString().equals("멘토링")){
             if(vo.getAuthority().equals("mentor")||vo.getAuthority().equals("master")){
                 if (postDAO.create(postVO)) {
                     JOptionPane.showMessageDialog(null, "글생성완료");
                     createPostPanel.setVisible(false);
                     homePanel.setVisible(true);
+                    titleText.setText("");
+                    contentsArea.setText("");
+                    memberText.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "글생성실패");
+                    titleText.setText("");
+                    contentsArea.setText("");
+                    memberText.setText("");
                 }
             }else{
                 JOptionPane.showMessageDialog(null, "권한이 없습니다.");
                 createPostPanel.setVisible(false);
                 homePanel.setVisible(true);
+                titleText.setText("");
+                contentsArea.setText("");
+                memberText.setText("");
             }
-        }else if(selectBox.getSelectedItem().toString().equals("Lecture")){
+        }else if(selectBox.getSelectedItem().toString().equals("강의")){
             if(vo.getAuthority().equals("master")){
                 if (postDAO.create(postVO)) {
                     JOptionPane.showMessageDialog(null, "글생성완료");
                     createPostPanel.setVisible(false);
                     homePanel.setVisible(true);
+                    titleText.setText("");
+                    contentsArea.setText("");
+                    memberText.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "글생성실패");
+                    titleText.setText("");
+                    contentsArea.setText("");
+                    memberText.setText("");
                 }
             }else{
                 JOptionPane.showMessageDialog(null, "권한이 없습니다.");
                 createPostPanel.setVisible(false);
                 homePanel.setVisible(true);
             }
-        }else return;
+        }else {
+            if (postDAO.create(postVO)) {
+                JOptionPane.showMessageDialog(null, "글생성완료");
+                createPostPanel.setVisible(false);
+                homePanel.setVisible(true);
+                titleText.setText("");
+                contentsArea.setText("");
+                memberText.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "글생성실패");
+                titleText.setText("");
+                contentsArea.setText("");
+                memberText.setText("");
+            }
+        }
 
     }
 
