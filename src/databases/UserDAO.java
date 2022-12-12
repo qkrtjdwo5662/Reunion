@@ -1,6 +1,7 @@
 package databases;
 
 import javax.security.auth.login.LoginException;
+import javax.swing.*;
 import java.sql.*;
 
 public class UserDAO {
@@ -66,10 +67,13 @@ public class UserDAO {
                 if(pass.equals(rs.getString("password"))){
                     queryCheck = true;
                 }else{
+                    JOptionPane.showMessageDialog(null, "로그인 정보를 확인하세요");
                     throw new LoginException("로그인오류");
+
                 }
 
             }else{
+                JOptionPane.showMessageDialog(null, "로그인 정보를 확인하세요");
                 throw new LoginException("로그인오류");
             }
         }catch (SQLException e){
