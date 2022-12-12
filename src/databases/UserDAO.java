@@ -29,11 +29,15 @@ public class UserDAO {
     public boolean create(UserVO userVO){
         queryCheck = false;
         try{
-            String sql = "INSERT INTO user(user_Id, password, name) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO user(user_Id, password, name,phoneNumber,email,authority,point) VALUES (?, ?, ?,?,?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1,userVO.getUser_Id());
             ps.setString(2,userVO.getPassword());
             ps.setString(3,userVO.getName());
+            ps.setString(4,userVO.getPhoneNumber());
+            ps.setString(5,userVO.getEmail());
+            ps.setString(6,"mentee");
+            ps.setInt(7,0);
             int r = ps.executeUpdate();
             if(r>0){
                 queryCheck =true;

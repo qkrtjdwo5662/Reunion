@@ -18,7 +18,7 @@ public class LoginFrame extends JFrame {
     private JButton loginBtn, joinBtn;
 
     private JPanel joinPanel;
-    private JTextField id_JoinText, pw_JoinText, name_JoinText;
+    private JTextField id_JoinText, pw_JoinText, name_JoinText,phoneNum_JoinText,email_JoinText;
     private JButton backBtn,registerBtn;
 
     UserVO userVO;
@@ -73,12 +73,20 @@ public class LoginFrame extends JFrame {
         joinPanel.add(id_JoinLabel);
 
         JLabel pw_JoinLabel = new JLabel("Password");
-        pw_JoinLabel.setBounds(40, 130, 80, 40);
+        pw_JoinLabel.setBounds(40, 110, 80, 40);
         joinPanel.add(pw_JoinLabel);
 
         JLabel name_JoinLabel = new JLabel("Name");
-        name_JoinLabel.setBounds(40, 210, 80, 40);
+        name_JoinLabel.setBounds(40, 170, 80, 40);
         joinPanel.add(name_JoinLabel);
+
+        JLabel phoneNum_JoinLabel = new JLabel("PhoneNum");
+        phoneNum_JoinLabel.setBounds(40, 230, 80, 40);
+        joinPanel.add(phoneNum_JoinLabel);
+
+        JLabel email_JoinLabel = new JLabel("Email");
+        email_JoinLabel.setBounds(40, 290, 80, 40);
+        joinPanel.add(email_JoinLabel);
 
         id_JoinText = new JTextField();
         id_JoinText.setBounds(160, 50, 200, 40);
@@ -87,13 +95,23 @@ public class LoginFrame extends JFrame {
 
         pw_JoinText = new JPasswordField();
         pw_JoinText.setColumns(10);
-        pw_JoinText.setBounds(160, 130, 200, 40);
+        pw_JoinText.setBounds(160, 110, 200, 40);
         joinPanel.add(pw_JoinText);
 
         name_JoinText = new JTextField();
         name_JoinText.setColumns(10);
-        name_JoinText.setBounds(160, 210, 200, 40);
+        name_JoinText.setBounds(160, 170, 200, 40);
         joinPanel.add(name_JoinText);
+
+        phoneNum_JoinText = new JTextField();
+        phoneNum_JoinText.setColumns(10);
+        phoneNum_JoinText.setBounds(160,230,200,40);
+        joinPanel.add(phoneNum_JoinText);
+
+        email_JoinText = new JTextField();
+        email_JoinText.setColumns(10);
+        email_JoinText.setBounds(160,290,200,40);
+        joinPanel.add(email_JoinText);
 
         backBtn = new JButton("뒤로가기");
         backBtn.setBounds(145, 370, 100, 30);

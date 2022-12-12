@@ -44,14 +44,14 @@ public class PostFrame extends JFrame {
         postWriterLabel2.setForeground(Color.GRAY);
         postPanel.add(postWriterLabel2);
 
-        postFixedNumberLabel1 = new JLabel("신청 가능 명:");
-        postFixedNumberLabel1.setBounds(280,100,50,40);
+        postFixedNumberLabel1 = new JLabel("신청가능인원:");
+        postFixedNumberLabel1.setBounds(280,100,70,40);
         postFixedNumberLabel1.setFont(new Font("Selif",Font.PLAIN,11));
         postFixedNumberLabel1.setForeground(Color.GRAY);
         postPanel.add(postFixedNumberLabel1);
 
         postFixedNumberLabel2 = new JLabel("1/3");
-        postFixedNumberLabel2.setBounds(330,100,300,40);
+        postFixedNumberLabel2.setBounds(350,100,300,40);
         postFixedNumberLabel2.setFont(new Font("Selif",Font.PLAIN,11));
         postFixedNumberLabel2.setForeground(Color.GRAY);
         postPanel.add(postFixedNumberLabel2);
