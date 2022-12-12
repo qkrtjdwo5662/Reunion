@@ -1,5 +1,7 @@
 package views;
+import databases.PostDAO;
 import databases.PostVO;
+import databases.UserDAO;
 import databases.UserVO;
 
 import javax.sound.sampled.*;
@@ -14,9 +16,13 @@ public class PostFrame extends JFrame {
 	private Clip clip;
 	private String song ="sound/MP_Tiny-Button-Push.wav";
     public JPanel postPanel;
-    private JButton postApplyBtn, postBackBtn;
+    private JButton postApplyBtn, postBackBtn,postWriterButton;
     private JLabel postTitleLabel, postWriterLabel1, postWriterLabel2, postFixedNumberLabel1, postFixedNumberLabel2, postContentLabel;
 
+    UserVO userVO;
+    UserDAO userDAO;
+    PostDAO postDAO;
+    private int count;
     public PostFrame(UserVO userVO, PostVO postVO){
 
         setSize(500,500);
@@ -38,11 +44,16 @@ public class PostFrame extends JFrame {
         postWriterLabel1.setForeground(Color.GRAY);
         postPanel.add(postWriterLabel1);
 
-        postWriterLabel2 = new JLabel(postVO.getUser_Id());
-        postWriterLabel2.setBounds(150,100,100,40);
-        postWriterLabel2.setFont(new Font("Selif",Font.PLAIN,11));
-        postWriterLabel2.setForeground(Color.GRAY);
-        postPanel.add(postWriterLabel2);
+//        postWriterLabel2 = new JLabel(postVO.getUser_Id());
+//        postWriterLabel2.setBounds(150,100,100,40);
+//        postWriterLabel2.setFont(new Font("Selif",Font.PLAIN,11));
+//        postWriterLabel2.setForeground(Color.GRAY);
+//        postPanel.add(postWriterLabel2);
+        postWriterButton = new JButton(postVO.getUser_Id());
+        postWriterButton.setBounds(150,100,100,40);
+        postWriterButton.setFont(new Font("Selif", Font.PLAIN,11));
+        postWriterButton.setForeground(Color.GRAY);
+        postPanel.add(postWriterButton);
 
         postFixedNumberLabel1 = new JLabel("신청가능인원:");
         postFixedNumberLabel1.setBounds(280,100,70,40);
@@ -77,6 +88,14 @@ public class PostFrame extends JFrame {
         loadAudio(song);
         setResizable(false);
 
+        postWriterButton.addActionListener(e->{
+            clip.setFramePosition(0);
+            clip.start();
+            userDAO = new UserDAO();
+            postDAO = new PostDAO();
+            count = postDAO.countPosts(postWriterButton.getText());
+            new UserInfoFrame(userInfo(postWriterButton),count);
+        });
         postApplyBtn.addActionListener(e->{
         	clip.setFramePosition(0);
             clip.start();
@@ -85,7 +104,7 @@ public class PostFrame extends JFrame {
         postBackBtn.addActionListener(e->{
         	clip.setFramePosition(0);
             clip.start();
-            MainFrame mf = new MainFrame(userVO);
+            new MainFrame(userVO);
             setVisible(false);
         });
         
@@ -114,7 +133,12 @@ public class PostFrame extends JFrame {
           catch (IOException e) { e.printStackTrace(); }
 
         }
+    public UserVO userInfo(JButton jButton){
+        UserDAO userDAO = new UserDAO();
+        userVO = userDAO.userInfoData(jButton.getText());
 
+        return userVO;
+    }
     public static void main(String[] args) {
         UserVO userVO = new UserVO();
         PostVO postVO = new PostVO();

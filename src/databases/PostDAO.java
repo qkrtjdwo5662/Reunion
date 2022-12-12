@@ -67,6 +67,28 @@ public class PostDAO {
         }
         return arrayList;
     }
+    public int countPosts(String uid){
+        int count = 0;
+        try {
+
+            String sql = "select count(user_Id) as count from post where user_Id=?";
+            ps = connection.prepareStatement(sql);
+
+
+            ps.setString(1, uid);
+
+            rs = ps.executeQuery();
+            rs.next();
+
+
+            count = rs.getInt(1);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            databasesClose();
+        }
+        return count;
+    }
 
 
     public void update(){

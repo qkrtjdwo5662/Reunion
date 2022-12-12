@@ -158,7 +158,6 @@ public class LoginFrame extends JFrame {
             clip.start();
             register();
         });
-       //registerBtn.addActionListener(e -> register());
 
 
     }

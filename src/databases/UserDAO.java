@@ -84,7 +84,7 @@ public class UserDAO {
         UserVO userVO= new UserVO();
         try {
 
-            String sql = "SELECT user_Id, password, name FROM user WHERE user_Id = ? and password=?";
+            String sql = "SELECT * FROM user WHERE user_Id = ? and password=?";
             ps = connection.prepareStatement(sql);
 
 
@@ -97,6 +97,36 @@ public class UserDAO {
             userVO.setUser_Id(rs.getString(1));
             userVO.setPassword(rs.getString(2));
             userVO.setName(rs.getString(3));
+            userVO.setPhoneNumber(rs.getString(4));
+            userVO.setEmail(rs.getString(5));
+            userVO.setAuthority(rs.getString(6));
+            userVO.setPoint(rs.getInt(7));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            databasesClose();
+        }
+
+        return userVO;
+    }
+    public UserVO userInfoData(String uid){
+        UserVO userVO= new UserVO();
+        try {
+
+            String sql = "SELECT * FROM user WHERE user_Id = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, uid);
+
+            rs = ps.executeQuery();
+            rs.next();
+
+            userVO.setUser_Id(rs.getString(1));
+            userVO.setPassword(rs.getString(2));
+            userVO.setName(rs.getString(3));
+            userVO.setPhoneNumber(rs.getString(4));
+            userVO.setEmail(rs.getString(5));
+            userVO.setAuthority(rs.getString(6));
+            userVO.setPoint(rs.getInt(7));
         }catch (SQLException e){
             e.printStackTrace();
         }finally {

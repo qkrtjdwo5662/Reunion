@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
         homePanel.add(imageLabel_coin);
 
         //coinLabel
-        coinLabel = new JLabel("820");
+        coinLabel = new JLabel(String.valueOf(userVO.getPoint()));
         coinLabel.setBounds(38, 80, 150, 20);
         homePanel.add(coinLabel);
 
