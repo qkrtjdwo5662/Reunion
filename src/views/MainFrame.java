@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
     private JPanel homePanel, menuPanel, postPanel;
     private ImageIcon icon, iconCoin, iconRoom1, iconRoom2, iconRoom3, iconRoom4;
     private JLabel coinLabel, imageLabel, imageLabel_coin, titleLabel, welcomeLabel, menuLabel, postTitleLabel, copyrightLabel;
-    private JButton imageBtn1, imageBtn2, imageBtn3, imageBtn4, menuHomeBtn,menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn;
+    private JButton imageBtn1, imageBtn2, imageBtn3, imageBtn4, menuHomeBtn,menuMentoringBtn, menuStudyBtn, menuReserveBtn, menuLectureBtn, writeBtn,manageUserBtn,applyMentorBtn;
     //--------------------------------------------------------------------//
     public JPanel createPostPanel;
     private JTextField titleText, memberText;
@@ -86,16 +86,31 @@ public class MainFrame extends JFrame {
         homePanel.add(title);
         title.setVisible(false);
 
-        iconCoin = new ImageIcon("image1/coin.jpg"); // 이미지 로딩
-        imageLabel_coin = new JLabel(iconCoin); // 이미지 레이블 만들기
-        imageLabel_coin.setSize(iconCoin.getIconHeight(), iconCoin.getIconWidth());
-        imageLabel_coin.setLocation(15, 80);
-        homePanel.add(imageLabel_coin);
+//        iconCoin = new ImageIcon("image1/coin.jpg"); // 이미지 로딩
+//        imageLabel_coin = new JLabel(iconCoin); // 이미지 레이블 만들기
+//        imageLabel_coin.setSize(iconCoin.getIconHeight(), iconCoin.getIconWidth());
+//        imageLabel_coin.setLocation(15, 80);
+//        homePanel.add(imageLabel_coin);
+//
+//        //coinLabel
+//        coinLabel = new JLabel(String.valueOf(userVO.getPoint()));
+//        coinLabel.setBounds(38, 80, 100, 20);
+//        homePanel.add(coinLabel);
 
-        //coinLabel
-        coinLabel = new JLabel(String.valueOf(userVO.getPoint()));
-        coinLabel.setBounds(38, 80, 150, 20);
-        homePanel.add(coinLabel);
+        manageUserBtn = new JButton("회원관리");
+        manageUserBtn.setBounds(15,80,100,20);
+        homePanel.add(manageUserBtn);
+
+//        if(userVO.getAuthority().equals("master")){
+//            imageLabel_coin.setVisible(false);
+//            coinLabel.setVisible(false);
+//            test.setVisible(true);
+//        }
+//        else{
+//            imageLabel_coin.setVisible(true);
+//            coinLabel.setVisible(true);
+//            test.setVisible(false);
+//        }
 
         //roomLabel
         room1Label = new JLabel("상빌 B1층 세미나실");
@@ -106,15 +121,18 @@ public class MainFrame extends JFrame {
         homePanel.add(room3Label);
         room4Label = new JLabel("학술정보관 그룹스터디실");
         homePanel.add(room4Label);
+
         titleLabel = new JLabel("Reunion", JLabel.CENTER);
         titleLabel.setBounds(100, 10, 300, 50);
         titleLabel.setForeground(new Color(40, 40, 120, 255));
         titleLabel.setFont(font);
         homePanel.add(titleLabel);
 
+
         welcomeLabel = new JLabel(userVO.getName() + "님 환영합니다", JLabel.CENTER);
         welcomeLabel.setBounds(5, 60, 120, 20);
         homePanel.add(welcomeLabel);
+
 
 
         copyrightLabel = new JLabel("@2022 Team Reunion All Rights Reserved");
@@ -137,6 +155,7 @@ public class MainFrame extends JFrame {
         menuLectureBtn = new JButton("강의");
         menuReserveBtn = new JButton("스터디룸 예약");
         writeBtn = new JButton("글쓰기");
+        applyMentorBtn = new JButton("멘토신청");
 
         //image
         iconRoom1 = new ImageIcon("image1/room1.jpg"); // 이미지 로딩      
@@ -166,16 +185,19 @@ public class MainFrame extends JFrame {
         menuMentoringBtn.setBounds(0, 130, 120, 30);
         menuPanel.add(menuMentoringBtn);
 
-
-
         menuLectureBtn.setBounds(0, 170, 120, 30);
         menuPanel.add(menuLectureBtn);
 
-        menuReserveBtn.setBounds(0, 250, 120, 30);
+        menuReserveBtn.setBounds(0, 210, 120, 30);
         menuPanel.add(menuReserveBtn);
 
-        writeBtn.setBounds(0, 290, 120, 30);
+        writeBtn.setBounds(0, 250, 120, 30);
         menuPanel.add(writeBtn);
+
+        applyMentorBtn.setBounds(0,290,120,30);
+        menuPanel.add(applyMentorBtn);
+
+
 
         postPanel.setBounds(125, 115, 375, 325);
         postPanel.setOpaque(true);
@@ -499,6 +521,27 @@ public class MainFrame extends JFrame {
             }
 
         });
+
+
+
+        manageUserBtn.addActionListener(e->{
+            if(!userVO.getAuthority().equals("master")){
+                JOptionPane.showMessageDialog(null, "권한이 없습니다.");
+            }else{
+                return;
+            }
+        });
+
+        applyMentorBtn.addActionListener(e->{
+            if(userVO.getAuthority().equals("mentee")){
+                JOptionPane.showMessageDialog(null, "신청이 완료되었습니다.");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "멘티만 신청이 가능합니다.");
+            }
+        });
+
+
         imageBtn1.addActionListener(e -> {
             try {
                 Desktop.getDesktop().browse(new URI(seminar));

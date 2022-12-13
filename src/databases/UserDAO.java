@@ -3,6 +3,7 @@ package databases;
 import javax.security.auth.login.LoginException;
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UserDAO {
     private Connection connection =new ConnectDB().getConnection(); // db연결 정보
@@ -138,6 +139,27 @@ public class UserDAO {
         }
 
         return userVO;
+    }
+    public ArrayList<UserVO> readAll(){
+        ArrayList<UserVO> arrayList = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM user";
+            ps = connection.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+                arrayList.add(new UserVO(rs.getString(1),rs.getString(2), rs.getString(3),
+                        rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7)
+                ));
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }finally {
+            databasesClose();
+        }
+
+        return arrayList;
     }
     public void update() {
 

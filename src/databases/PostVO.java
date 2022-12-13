@@ -24,6 +24,7 @@ public class PostVO {
         this.user_Id = user_Id;
     }
 
+
     public int getPost_Id(){
         return post_Id;
     }
