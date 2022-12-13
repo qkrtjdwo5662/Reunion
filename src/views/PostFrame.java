@@ -19,7 +19,9 @@ public class PostFrame extends JFrame {
     UserVO userVO;
     UserDAO userDAO;
     PostDAO postDAO;
+    ApplyDAO applyDAO;
     private int count;
+    ArrayList<String> arrayList;
     public PostFrame(UserVO userVO, PostVO postVO){
 
         setSize(500,500);
@@ -41,11 +43,6 @@ public class PostFrame extends JFrame {
         postWriterLabel1.setForeground(Color.GRAY);
         postPanel.add(postWriterLabel1);
 
-//        postWriterLabel2 = new JLabel(postVO.getUser_Id());
-//        postWriterLabel2.setBounds(150,100,100,40);
-//        postWriterLabel2.setFont(new Font("Selif",Font.PLAIN,11));
-//        postWriterLabel2.setForeground(Color.GRAY);
-//        postPanel.add(postWriterLabel2);
         postWriterButton = new JButton(postVO.getUser_Id());
         postWriterButton.setBounds(150,100,100,40);
         postWriterButton.setFont(new Font("Selif", Font.PLAIN,11));
@@ -58,7 +55,8 @@ public class PostFrame extends JFrame {
         postFixedNumberLabel1.setForeground(Color.GRAY);
         postPanel.add(postFixedNumberLabel1);
 
-        postFixedNumberLabel2 = new JLabel(String.valueOf(postVO.getLimit()));
+        applyDAO = new ApplyDAO();
+        postFixedNumberLabel2 = new JLabel(String.valueOf(postVO.getLimit()-applyDAO.countApply(postVO.getPost_Id())));
         postFixedNumberLabel2.setBounds(350,100,300,40);
         postFixedNumberLabel2.setFont(new Font("Selif",Font.PLAIN,11));
         postFixedNumberLabel2.setForeground(Color.GRAY);
@@ -96,15 +94,21 @@ public class PostFrame extends JFrame {
         postApplyBtn.addActionListener(e->{
         	clip.setFramePosition(0);
             clip.start();
-            ApplyDAO applyDAO = new ApplyDAO();
-            if(!userVO.getUser_Id().equals(postVO.getUser_Id())){
-                if(applyDAO.apply(postVO)){
+            arrayList = new ArrayList<>();
+            arrayList = applyDAO.checkDuplicate(postVO.getPost_Id());
+            System.out.println(arrayList.contains(userVO.getUser_Id()));
+
+            if((!userVO.getUser_Id().equals(postVO.getUser_Id()))&&!(postVO.getLimit()-applyDAO.countApply(postVO.getPost_Id())==0)&&!arrayList.contains(userVO.getUser_Id())){
+                if(applyDAO.apply(postVO,userVO)){
                     JOptionPane.showMessageDialog(null, "신청이 완료되었습니다.");
                 }else{
                     JOptionPane.showMessageDialog(null, "신청이 완료되지 않았습니다.");
                 }
-            }
-            else{
+            } else if (postVO.getLimit()-applyDAO.countApply(postVO.getPost_Id())==0) {
+                JOptionPane.showMessageDialog(null, "신청 가능한 인원이 다찼습니다.");
+            } else if (arrayList.contains(userVO.getUser_Id())) {
+                JOptionPane.showMessageDialog(null, "중복 신청은 불가능합니다.");
+            } else{
                 JOptionPane.showMessageDialog(null, "자신의 게시물에는 산청할 수 없습니다.");
             }
 

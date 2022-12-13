@@ -39,8 +39,6 @@ public class PostDAO {
             }
         }catch (SQLException sqle){
             sqle.printStackTrace();
-        }finally {
-            databasesClose();
         }
         return queryCheck;
     }
@@ -62,8 +60,6 @@ public class PostDAO {
 
         }catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            databasesClose();
         }
         return arrayList;
     }
@@ -84,8 +80,6 @@ public class PostDAO {
             count = rs.getInt(1);
         }catch (SQLException e){
             e.printStackTrace();
-        }finally {
-            databasesClose();
         }
         return count;
     }
