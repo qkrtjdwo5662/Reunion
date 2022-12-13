@@ -1,8 +1,5 @@
 package views;
-import databases.PostDAO;
-import databases.PostVO;
-import databases.UserDAO;
-import databases.UserVO;
+import databases.*;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -61,7 +58,7 @@ public class PostFrame extends JFrame {
         postFixedNumberLabel1.setForeground(Color.GRAY);
         postPanel.add(postFixedNumberLabel1);
 
-        postFixedNumberLabel2 = new JLabel("1/3");
+        postFixedNumberLabel2 = new JLabel(String.valueOf(postVO.getLimit()));
         postFixedNumberLabel2.setBounds(350,100,300,40);
         postFixedNumberLabel2.setFont(new Font("Selif",Font.PLAIN,11));
         postFixedNumberLabel2.setForeground(Color.GRAY);
@@ -99,6 +96,18 @@ public class PostFrame extends JFrame {
         postApplyBtn.addActionListener(e->{
         	clip.setFramePosition(0);
             clip.start();
+            ApplyDAO applyDAO = new ApplyDAO();
+            if(!userVO.getUser_Id().equals(postVO.getUser_Id())){
+                if(applyDAO.apply(postVO)){
+                    JOptionPane.showMessageDialog(null, "신청이 완료되었습니다.");
+                }else{
+                    JOptionPane.showMessageDialog(null, "신청이 완료되지 않았습니다.");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "자신의 게시물에는 산청할 수 없습니다.");
+            }
+
             
         });
         postBackBtn.addActionListener(e->{

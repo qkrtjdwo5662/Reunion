@@ -4,9 +4,11 @@ import databases.UserDAO;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
 
 public class ManagerFrame extends JFrame {
     private Clip clip;
@@ -25,8 +27,20 @@ public class ManagerFrame extends JFrame {
 
         String header[] ={"ID","Name","PhoneNumber","Email","Authority","ApplyMentor","1"};
 
+        Vector data = new Vector<>();
 
-        JTable jt = new JTable(userDAO.readAll().,header);
+        Vector title = new Vector<>();
+        title.add("ID");
+        title.add("PW");
+        title.add("Name");
+        title.add("PhoneNumber");
+        title.add("Email");
+        title.add("Authority");
+        title.add("Point");
+
+        data.add(userDAO.readAll());
+
+
         setVisible(true);
         loadAudio(song);
         setResizable(false);
