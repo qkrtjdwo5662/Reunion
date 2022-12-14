@@ -87,31 +87,18 @@ public class MainFrame extends JFrame {
         homePanel.add(title);
         title.setVisible(false);
 
-//        iconCoin = new ImageIcon("image1/coin.jpg"); // 이미지 로딩
-//        imageLabel_coin = new JLabel(iconCoin); // 이미지 레이블 만들기
-//        imageLabel_coin.setSize(iconCoin.getIconHeight(), iconCoin.getIconWidth());
-//        imageLabel_coin.setLocation(15, 80);
-//        homePanel.add(imageLabel_coin);
-//
-//        //coinLabel
-//        coinLabel = new JLabel(String.valueOf(userVO.getPoint()));
-//        coinLabel.setBounds(38, 80, 100, 20);
-//        homePanel.add(coinLabel);
+        iconCoin = new ImageIcon("image1/coin.jpg"); // 이미지 로딩
+        imageLabel_coin = new JLabel(iconCoin); // 이미지 레이블 만들기
+        imageLabel_coin.setSize(iconCoin.getIconHeight(), iconCoin.getIconWidth());
+        imageLabel_coin.setLocation(15, 80);
+        homePanel.add(imageLabel_coin);
 
-        manageUserBtn = new JButton("회원관리");
-        manageUserBtn.setBounds(15,80,100,20);
-        homePanel.add(manageUserBtn);
+        //coinLabel
+        coinLabel = new JLabel(String.valueOf(userVO.getPoint()));
+        coinLabel.setBounds(38, 80, 100, 20);
+        homePanel.add(coinLabel);
 
-//        if(userVO.getAuthority().equals("master")){
-//            imageLabel_coin.setVisible(false);
-//            coinLabel.setVisible(false);
-//            test.setVisible(true);
-//        }
-//        else{
-//            imageLabel_coin.setVisible(true);
-//            coinLabel.setVisible(true);
-//            test.setVisible(false);
-//        }
+
 
         //roomLabel
         room1Label = new JLabel("상빌 B1층 세미나실");
@@ -523,15 +510,6 @@ public class MainFrame extends JFrame {
 
         });
 
-
-
-        manageUserBtn.addActionListener(e->{
-            if(!userVO.getAuthority().equals("master")){
-                JOptionPane.showMessageDialog(null, "권한이 없습니다.");
-            }else{
-                return;
-            }
-        });
 
         applyMentorBtn.addActionListener(e->{
             if(userVO.getAuthority().equals("mentee")){

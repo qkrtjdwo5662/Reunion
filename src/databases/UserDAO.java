@@ -141,26 +141,6 @@ public class UserDAO {
 
         return userVO;
     }
-    public Vector<UserVO> readAll(){
-        Vector<UserVO> voVector = new Vector<>();
-        try {
-            String sql = "SELECT * FROM user";
-            ps = connection.prepareStatement(sql);
-
-            while (rs.next())
-            {
-                voVector.add(new UserVO(rs.getString(1),rs.getString(2), rs.getString(3),
-                        rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7)
-                ));
-            }
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }finally {
-            databasesClose();
-        }
-
-        return voVector;
-    }
     public boolean updateAuthority(String uid) {
         UserVO userVO;
         userVO = new UserVO();
