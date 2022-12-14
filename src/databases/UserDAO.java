@@ -161,8 +161,28 @@ public class UserDAO {
 
         return voVector;
     }
-    public void update() {
+    public boolean updateAuthority(String uid) {
+        UserVO userVO;
+        userVO = new UserVO();
+        queryCheck = false;
+        try {
 
+            String sql = "update user set authority=? where user_Id = ?";
+            ps = connection.prepareStatement(sql);
+
+
+            ps.setString(1, "mentor");
+            ps.setString(2,uid);
+
+            int r = ps.executeUpdate();
+
+            if(r>0){
+                queryCheck =true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return queryCheck;
     }
     public void delete(){
 

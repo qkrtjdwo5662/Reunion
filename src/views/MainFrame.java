@@ -29,6 +29,7 @@ import javax.swing.border.LineBorder;
 
 import databases.PostDAO;
 import databases.PostVO;
+import databases.UserDAO;
 import databases.UserVO;
 
 public class MainFrame extends JFrame {
@@ -534,7 +535,14 @@ public class MainFrame extends JFrame {
 
         applyMentorBtn.addActionListener(e->{
             if(userVO.getAuthority().equals("mentee")){
-                JOptionPane.showMessageDialog(null, "신청이 완료되었습니다.");
+                UserDAO userDAO;
+                userDAO = new UserDAO();
+                if(userDAO.updateAuthority(userVO.getUser_Id())) {
+                    JOptionPane.showMessageDialog(null, "신청이 완료되었습니다.");
+                    userVO.setAuthority("mentor");
+                }else{
+                    JOptionPane.showMessageDialog(null, "신청이 완료되지 않았습니다.");
+                }
             }
             else{
                 JOptionPane.showMessageDialog(null, "멘티만 신청이 가능합니다.");
